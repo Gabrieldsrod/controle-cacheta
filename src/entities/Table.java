@@ -2,13 +2,15 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.Duration;
 
 public class Table {
     private int tableNumber;
     private boolean isOccupied;
     private List<Player> players;
-    // private "horario de inicio"
-    // private "horario de fim"
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
@@ -47,6 +49,33 @@ public class Table {
     public void reset() {
         this.isOccupied = false;
         this.players.clear();
+        this.startTime = null;
+        this.endTime = null;
     }
 
+    public void startGame() {
+        if (!isOccupied) {
+            this.startTime = LocalDateTime.now();
+            this.isOccupied = true;
+        } else {
+            throw new IllegalStateException("A mesa já está ocupada.");
+        }
+    }
+
+    public void endGame() {
+        if (isOccupied) {
+            this.endTime = LocalDateTime.now();
+            this.isOccupied = false;
+        } else {
+            throw new IllegalStateException("A mesa não está ocupada.");
+        }
+    }
+
+    public long getGameDurationMinutes() {
+        if (startTime != null && endTime != null) {
+            return Duration.between(startTime, endTime).toMinutes();
+        } else {
+            throw new IllegalStateException("A partida ainda não foi finalizada.");
+        }
+    }
 }
