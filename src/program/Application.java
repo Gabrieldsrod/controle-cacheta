@@ -35,32 +35,29 @@ public class Application {
     public static void main(String[] args) {
         Application app = new Application(15.00);
 
-        // Adicionando uma mesa
         app.addTable(1);
         Table table = app.getTable(1);
 
-        // Iniciando uma partida
+        Player player1 = new Player("João");
+        Player player2 = new Player("Maria");
+        table.addPlayer(player1);
+        table.addPlayer(player2);
+
         System.out.println("Iniciando a partida...");
         table.startGame();
 
-        // Simulando tempo de jogo (aguarde alguns segundos ou use Thread.sleep para simular)
-        try {
-            Thread.sleep(5000); // Aguarda 5 segundos
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Partida em andamento - não sei ainda
+        // Ponto a ver: como simular o tempo de jogo?
 
-        // Finalizando a partida
         System.out.println("Finalizando a partida...");
         table.endGame();
 
-        // Calculando a duração
-        long durationMinutes = table.getGameDurationMinutes();
-        System.out.println("Duração da partida: " + durationMinutes + " minutos");
+        table.calculatePlayerPayments(app.pricePerHour);
 
-        // Calculando o valor a pagar
-        double pricePerMinute = app.pricePerHour / 60;
-        double totalPrice = durationMinutes * pricePerMinute;
-        System.out.println("Valor total a pagar: R$ " + String.format("%.2f", totalPrice));
+        for (Player player : table.getPlayers()) {
+            System.out.println("Jogador: " + player.getName());
+            System.out.println("Tempo total jogado: " + player.getTotalTimeMinutes() + " minutos");
+            System.out.println("Valor total a pagar: R$ " + String.format("%.2f", player.getTotalValueToPay()));
+        }
     }
 }

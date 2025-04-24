@@ -78,4 +78,19 @@ public class Table {
             throw new IllegalStateException("A partida ainda não foi finalizada.");
         }
     }
+
+    public void calculatePlayerPayments(double pricePerHour) {
+        if (startTime != null && endTime != null) {
+            long durationMinutes = getGameDurationMinutes();
+            double pricePerMinute = pricePerHour / 60;
+            double totalPrice = durationMinutes * pricePerMinute;
+
+            for (Player player : players) {
+                player.addTime((int) durationMinutes);
+                player.addValue(totalPrice / players.size());
+            }
+        } else {
+            throw new IllegalStateException("A partida ainda não foi finalizada.");
+        }
+    }
 }
