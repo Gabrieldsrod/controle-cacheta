@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 
 public class Table {
     private int tableNumber;
@@ -53,18 +54,20 @@ public class Table {
         this.endTime = null;
     }
 
-    public void startGame() {
+    public void startGame(String startTimeInput) {
         if (!isOccupied) {
-            this.startTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            this.startTime = LocalDateTime.parse(startTimeInput, formatter);
             this.isOccupied = true;
         } else {
             throw new IllegalStateException("A mesa já está ocupada.");
         }
     }
 
-    public void endGame() {
+    public void endGame(String endTimeInput) {
         if (isOccupied) {
-            this.endTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            this.endTime = LocalDateTime.parse(endTimeInput, formatter);
             this.isOccupied = false;
         } else {
             throw new IllegalStateException("A mesa não está ocupada.");
