@@ -5,6 +5,8 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalTime;
 
 public class Table {
     private int tableNumber;
@@ -56,19 +58,33 @@ public class Table {
 
     public void startGame(String startTimeInput) {
         if (!isOccupied) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            this.startTime = LocalDateTime.parse(startTimeInput, formatter);
-            this.isOccupied = true;
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime startDateTime = now.withHour(LocalTime.parse(startTimeInput, formatter).getHour())
+                                                 .withMinute(LocalTime.parse(startTimeInput, formatter).getMinute());
+                this.startTime = startDateTime;
+                this.isOccupied = true;
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Formato de horário inválido. Use o formato HH:mm.");
+            }
         } else {
             throw new IllegalStateException("A mesa já está ocupada.");
         }
     }
-
+    
     public void endGame(String endTimeInput) {
         if (isOccupied) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            this.endTime = LocalDateTime.parse(endTimeInput, formatter);
-            this.isOccupied = false;
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime endDateTime = now.withHour(LocalTime.parse(endTimeInput, formatter).getHour())
+                                               .withMinute(LocalTime.parse(endTimeInput, formatter).getMinute());
+                this.endTime = endDateTime;
+                this.isOccupied = false;
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Formato de horário inválido. Use o formato HH:mm.");
+            }
         } else {
             throw new IllegalStateException("A mesa não está ocupada.");
         }
@@ -85,8 +101,9 @@ public class Table {
     public void calculatePlayerPayments(double pricePerHour) {
         if (startTime != null && endTime != null) {
             long durationMinutes = getGameDurationMinutes();
+            long roundedDurationMinutes = (long) Math.ceil((double) durationMinutes / 60) * 60;
             double pricePerMinute = pricePerHour / 60;
-            double totalPrice = durationMinutes * pricePerMinute;
+            double totalPrice = roundedDurationMinutes * pricePerMinute;
 
             for (Player player : players) {
                 player.addTime((int) durationMinutes);

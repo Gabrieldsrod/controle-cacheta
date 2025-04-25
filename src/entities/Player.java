@@ -35,4 +35,10 @@ public class Player {
         this.totalTimeMinutes = 0;
         this.totalValueToPay = 0.0;
     }
+
+    public String getTotalTimeFormatted() {
+        long hours = totalTimeMinutes / 60;
+        long minutes = totalTimeMinutes % 60;
+        return String.format("%02d:%02d", hours, minutes);
+    }
 }
