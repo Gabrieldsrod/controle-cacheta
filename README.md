@@ -1,18 +1,30 @@
-## Getting Started
+# Controle Cacheta
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Controle Cacheta é uma aplicação para gerenciar partidas do jogo de cartas Cacheta, permitindo registrar pontuações, jogadores e acompanhar o progresso das partidas.
 
-## Folder Structure
+## Funcionalidades
 
-The workspace contains two folders by default, where:
+- Cadastro de jogadores.
+- Registro de pontuações por rodada.
+- Exibição do placar atualizado.
+- Histórico de partidas.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Estrutura do Projeto
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+O projeto contém as seguintes pastas:
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+- `src`: Contém o código-fonte da aplicação.
+- `lib`: Contém as dependências necessárias para o funcionamento do projeto.
 
-## Dependency Management
+Os arquivos compilados serão gerados na pasta `bin` por padrão.
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Como Executar
+
+1. Certifique-se de ter o [Java JDK](https://www.oracle.com/java/technologies/javase-downloads.html) instalado.
+2. Clone este repositório em sua máquina.
+3. Abra o projeto em um editor como o Visual Studio Code.
+4. Compile e execute o projeto utilizando as ferramentas disponíveis no editor.
+
+## Gerenciamento de Dependências
+
+Utilize a visualização `JAVA PROJECTS` no Visual Studio Code para gerenciar as dependências do projeto. Mais detalhes podem ser encontrados [aqui](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).

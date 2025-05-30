@@ -1,0 +1,68 @@
+# Compilação Java
+*.class
+**/*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Diretórios comuns de build
+/bin/
+/build/
+/out/
+/target/
+
+# IDEs - IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# IDEs - Eclipse
+.project
+.classpath
+.settings/
+.loadpath
+
+# IDEs - NetBeans
+nbproject/private/
+bnbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Arquivos do Maven e Gradle
+.mvn/
+.gradle/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de ambiente local
+.env
+*.env
+
+# Arquivos de teste e cobertura
+/test-output/
+jacoco.exec
+coverage/
+*.ec
+*.exec
+
+# Arquivos gerados por ferramentas de análise
+.checkstyle
+.findbugs
+.pmd
+
+# Outros
+.vscode/
+/.metadata/
+.metadata/
