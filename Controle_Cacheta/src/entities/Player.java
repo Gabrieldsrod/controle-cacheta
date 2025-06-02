@@ -1,25 +1,25 @@
 package entities;
 
 public class Player {
-    private String name;
-    private int totalTimeMinutes;
-    private double totalValueToPay;
+    private Integer id;
+    private long totalTimeMinutes;
+    private Double totalValueToPay;
 
-    public Player(String name) {
-        this.name = name;
+    public Player(Integer id) {
+        this.id = id;
         this.totalTimeMinutes = 0;
         this.totalValueToPay = 0.0;
     }
 
-    public String getName() {
-        return name;
+    public Integer getId() {
+        return id;
     }
 
-    public int getTotalTimeMinutes() {
+    public long getTotalTimeMinutes() {
         return totalTimeMinutes;
     }
 
-    public double getTotalValueToPay() {
+    public Double getTotalValueToPay() {
         return totalValueToPay;
     }
 
@@ -37,9 +37,9 @@ public class Player {
     }
 
     public void calculatePlayerPayments(double pricePerHour, long durationMinutes) {
-        double pricePerMinute = pricePerHour / 60;
-        double totalPrice = durationMinutes * pricePerMinute;
+        long horas = (long) Math.ceil(durationMinutes / 60.0);
+        double totalPrice = horas * pricePerHour;
         this.totalValueToPay += totalPrice;
-        this.totalTimeMinutes += (int) durationMinutes;
+        this.totalTimeMinutes += (int) (horas * 60);
     }
 }
