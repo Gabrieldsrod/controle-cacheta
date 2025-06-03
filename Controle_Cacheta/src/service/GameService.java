@@ -53,7 +53,7 @@ public class GameService {
                     throw new IllegalStateException("Mesa não iniciada corretamente, horário de início não encontrado.");
                 }
                 table.setEndTime(LocalDateTime.now());
-                long duration = table.getGameDurationMinutes();
+                int duration = table.getGameDurationMinutes();
 
                 for (Player player : table.getPlayers()) {
                     player.calculatePlayerPayments(pricePerHour, duration);

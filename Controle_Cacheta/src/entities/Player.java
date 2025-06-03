@@ -2,8 +2,8 @@ package entities;
 
 public class Player {
     private final Integer id;
-    private long totalTimeMinutes;
-    private Double totalValueToPay;
+    private int totalTimeMinutes;
+    private double totalValueToPay;
 
     public Player(Integer id) {
         this.id = id;
@@ -15,11 +15,11 @@ public class Player {
         return id;
     }
 
-    public long getTotalTimeMinutes() {
+    public int getTotalTimeMinutes() {
         return totalTimeMinutes;
     }
 
-    public Double getTotalValueToPay() {
+    public double getTotalValueToPay() {
         return totalValueToPay;
     }
 
@@ -36,10 +36,10 @@ public class Player {
         this.totalValueToPay = 0.0;
     }
 
-    public void calculatePlayerPayments(double pricePerHour, long durationMinutes) {
-        long horas = (long) Math.ceil(durationMinutes / 60.0);
+    public void calculatePlayerPayments(double pricePerHour, int durationMinutes) {
+        int horas = (int) Math.ceil(durationMinutes / 60.0);
         double totalPrice = horas * pricePerHour;
         this.totalValueToPay += totalPrice;
-        this.totalTimeMinutes += (int) (horas * 60);
+        this.totalTimeMinutes += horas * 60;
     }
 }

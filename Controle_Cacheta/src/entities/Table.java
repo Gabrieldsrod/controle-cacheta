@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-    private final Integer tableNumber;
+    private final int tableNumber;
     private Integer playerCount = 0;
     private boolean isOccupied;
     private final List<Player> players;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    public Table(Integer tableNumber) {
+    public Table(int tableNumber) {
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.players = new ArrayList<>();
     }
 
-    public Integer getTableNumber() {
+    public int getTableNumber() {
         return tableNumber;
     }
 
-    public Integer getPlayerCount() {
+    public int getPlayerCount() {
         return playerCount;
     }
 
@@ -55,9 +55,10 @@ public class Table {
         this.endTime = endTime;
     }
 
-    public long getGameDurationMinutes() {
+    public int getGameDurationMinutes() {
         if (startTime != null && endTime != null) {
-            return Duration.between(startTime, endTime).toMinutes();
+            long duration = Duration.between(startTime, endTime).toMinutes();
+            return (int) duration;
         } else {
             return 0;
         }
@@ -70,7 +71,7 @@ public class Table {
 
     public void removePlayer(Player player) {
         if (players.remove(player)) {
-            playerCount = Math.max(0, playerCount - 1);
+            playerCount = Math.max(0, playerCount - 1);  // Evitar numeros negativos em playerCount
         }
     }
 
