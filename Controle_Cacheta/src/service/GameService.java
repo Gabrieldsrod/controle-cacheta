@@ -1,13 +1,16 @@
 package service;
 
+import entities.Game;
 import entities.Player;
 import entities.Table;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameService {
     private List<Table> tables;
+    private final List<Game> finishedGames = new ArrayList<>();
     private double pricePerHour = 15.00;
 
     public GameService(List<Table> tables) {
@@ -25,6 +28,10 @@ public class GameService {
 
     public void setTables(List<Table> tables) {
         this.tables = tables;
+    }
+
+    public List<Game> getFinishedGames() {
+        return finishedGames;
     }
 
     public double getPricePerHour() {
@@ -54,10 +61,20 @@ public class GameService {
                 }
                 table.setEndTime(LocalDateTime.now());
                 int duration = table.getGameDurationMinutes();
+                int hours = Math.max(1, (int) Math.ceil(duration / 60.0));
+                double totalValuePerHour = pricePerHour * hours;
+                double totalTableValue = totalValuePerHour * table.getPlayerCount();
 
                 for (Player player : table.getPlayers()) {
                     player.calculatePlayerPayments(pricePerHour, duration);
                 }
+
+                finishedGames.add(new Game(
+                        table.getTableNumber(),
+                        table.getStartTime(),
+                        table.getEndTime(),
+                        table.getGameDurationMinutes(),
+                        totalTableValue));
 
                 table.setOccupied(false);
                 return;
