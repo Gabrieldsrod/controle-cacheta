@@ -3,7 +3,6 @@ package service;
 import entities.Player;
 import entities.Table;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -50,6 +49,9 @@ public class GameService {
     public void endGame(int tableNumber) {
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && table.isOccupied()) {
+                if(table.getStartTime() == null) {
+                    throw new IllegalStateException("Mesa não iniciada corretamente, horário de início não encontrado.");
+                }
                 table.setEndTime(LocalDateTime.now());
                 long duration = table.getGameDurationMinutes();
 

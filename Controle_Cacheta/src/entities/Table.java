@@ -69,15 +69,13 @@ public class Table {
     }
 
     public void removePlayer(Player player) {
-        players.remove(player);
-        playerCount--;
+        if (players.remove(player)) {
+            playerCount = Math.max(0, playerCount - 1);
+        }
     }
 
     public void clearPlayers() {
         players.clear();
+        playerCount = 0;
     }
-
-
-
-
 }

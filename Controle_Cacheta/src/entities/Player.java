@@ -1,7 +1,7 @@
 package entities;
 
 public class Player {
-    private Integer id;
+    private final Integer id;
     private long totalTimeMinutes;
     private Double totalValueToPay;
 
