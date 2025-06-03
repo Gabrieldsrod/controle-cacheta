@@ -11,6 +11,10 @@ public class GameService {
     private List<Table> tables;
     private double pricePerHour = 15.00;
 
+    public GameService(List<Table> tables) {
+        this.tables = tables;
+    }
+
     public GameService(List<Table> tables, double pricePerHour) {
         this.tables = tables;
         this.pricePerHour = pricePerHour;
