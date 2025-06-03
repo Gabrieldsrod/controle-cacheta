@@ -1,4 +1,5 @@
 package service;
 
-public class Repore {
+public class ReportService {
+    /* TODO Gerar relatórios via json utilizando classe File */
 }

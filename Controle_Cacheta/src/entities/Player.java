@@ -37,7 +37,7 @@ public class Player {
     }
 
     public void calculatePlayerPayments(double pricePerHour, int durationMinutes) {
-        int horas = (int) Math.ceil(durationMinutes / 60.0);
+        int horas = Math.max(1, (int) Math.ceil(durationMinutes / 60.0));
         double totalPrice = horas * pricePerHour;
         this.totalValueToPay += totalPrice;
         this.totalTimeMinutes += horas * 60;
