@@ -10,8 +10,6 @@ import java.util.List;
 public class GameService {
     private List<Table> tables;
     private double pricePerHour = 15.00;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
 
     public GameService(List<Table> tables, double pricePerHour) {
         this.tables = tables;
@@ -34,54 +32,31 @@ public class GameService {
         this.pricePerHour = pricePerHour;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
     public void startGame(int tableNumber) {
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && !table.isOccupied() ) {
-                this.startTime = LocalDateTime.now();
                 table.setOccupied(true);
+                table.setStartTime(LocalDateTime.now());
+                return;
             }
         }
-        throw new IllegalArgumentException("Table not found or already occupied.");
+        throw new IllegalArgumentException("Mesa não encontrada ou já está ocupada.");
     }
 
     public void endGame(int tableNumber) {
-        if (startTime != null) {
-            this.endTime = LocalDateTime.now();
-            for (Table table : tables) {
-                if (table.getTableNumber() == tableNumber && table.isOccupied()) {
-                    table.setOccupied(false);
+        for (Table table : tables) {
+            if (table.getTableNumber() == tableNumber && table.isOccupied()) {
+                table.setEndTime(LocalDateTime.now());
+                long duration = table.getGameDurationMinutes();
 
-                    for (Player player : table.getPlayers()) {
-                        player.calculatePlayerPayments(pricePerHour, getGameDurationMinutes());
-                    }
+                for (Player player : table.getPlayers()) {
+                    player.calculatePlayerPayments(pricePerHour, duration);
                 }
-            }
-        } else {
-            throw new IllegalStateException("A partida ainda não foi iniciada.");
-        }
-    }
 
-    public long getGameDurationMinutes() {
-        if (startTime != null && endTime != null) {
-            return Duration.between(startTime, endTime).toMinutes();
-        } else {
-            throw new IllegalStateException("A partida ainda não foi finalizada.");
+                table.setOccupied(false);
+                return;
+            }
         }
+        throw new IllegalArgumentException("Mesa não encontrada ou já está livre.");
     }
 }

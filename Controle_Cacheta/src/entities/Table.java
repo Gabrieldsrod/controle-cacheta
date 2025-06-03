@@ -1,25 +1,29 @@
 package entities;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-    private final int tableNumber;
-    private int playerCount = 0;
+    private final Integer tableNumber;
+    private Integer playerCount = 0;
     private boolean isOccupied;
     private final List<Player> players;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-    public Table(int tableNumber) {
+    public Table(Integer tableNumber) {
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.players = new ArrayList<>();
     }
 
-    public int getTableNumber() {
+    public Integer getTableNumber() {
         return tableNumber;
     }
 
-    public int getPlayerCount() {
+    public Integer getPlayerCount() {
         return playerCount;
     }
 
@@ -35,6 +39,30 @@ public class Table {
         return players;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public long getGameDurationMinutes() {
+        if (startTime != null && endTime != null) {
+            return Duration.between(startTime, endTime).toMinutes();
+        } else {
+            return 0;
+        }
+    }
+
     public void addPlayer(Player player) {
         players.add(player);
         playerCount++;
@@ -48,6 +76,8 @@ public class Table {
     public void clearPlayers() {
         players.clear();
     }
+
+
 
 
 }
