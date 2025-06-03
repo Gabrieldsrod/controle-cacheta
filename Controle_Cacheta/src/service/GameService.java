@@ -61,9 +61,9 @@ public class GameService {
                 }
                 table.setEndTime(LocalDateTime.now());
                 int duration = table.getGameDurationMinutes();
-                int hours = Math.max(1, (int) Math.ceil(duration / 60.0));
-                double totalValuePerHour = pricePerHour * hours;
-                double totalTableValue = totalValuePerHour * table.getPlayerCount();
+
+                double totalTableValue = table.calculateTotalTableValue(pricePerHour);
+                table.setTotalTableValue(totalTableValue);
 
                 for (Player player : table.getPlayers()) {
                     player.calculatePlayerPayments(pricePerHour, duration);
@@ -74,7 +74,7 @@ public class GameService {
                         table.getStartTime(),
                         table.getEndTime(),
                         table.getGameDurationMinutes(),
-                        totalTableValue));
+                        table.getTotalTableValue()));
 
                 table.setOccupied(false);
                 return;
