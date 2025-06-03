@@ -8,7 +8,7 @@ import java.util.List;
 public class Table {
     private final int tableNumber;
     private int playerCount = 0;
-    private double totalTableValue = 0.0;
+    private double tableValue = 0.0;
     private boolean isOccupied;
     private final List<Player> players;
     private LocalDateTime startTime;
@@ -28,12 +28,12 @@ public class Table {
         return playerCount;
     }
 
-    public double getTotalTableValue() {
-        return totalTableValue;
+    public double getTableValue() {
+        return tableValue;
     }
 
-    public void setTotalTableValue(double totalTableValue) {
-        this.totalTableValue = totalTableValue;
+    public void setTableValue(double tableValue) {
+        this.tableValue = tableValue;
     }
 
     public boolean isOccupied() {
@@ -89,7 +89,7 @@ public class Table {
         playerCount = 0;
     }
 
-    public double calculateTotalTableValue(double pricePerHour) {
+    public double calculateTableValue(double pricePerHour) {
         int duracao = getGameDurationMinutes();
         int horas = Math.max(1, (int) Math.ceil(duracao / 60.0));
         return pricePerHour * horas * getPlayerCount();
