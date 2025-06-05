@@ -1,8 +1,8 @@
-package service;
+package main.java.com.gabrieldsrod.controlecacheta.service;
 
-import entities.Game;
-import entities.Player;
-import entities.Table;
+import main.java.com.gabrieldsrod.controlecacheta.entities.Game;
+import main.java.com.gabrieldsrod.controlecacheta.entities.Player;
+import main.java.com.gabrieldsrod.controlecacheta.entities.Table;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -82,4 +82,5 @@ public class GameService {
         }
         throw new IllegalArgumentException("Mesa não encontrada ou já está livre.");
     }
+
 }

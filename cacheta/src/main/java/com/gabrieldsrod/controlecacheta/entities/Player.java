@@ -1,4 +1,4 @@
-package entities;
+package main.java.com.gabrieldsrod.controlecacheta.entities;
 
 public class Player {
     private final Integer id;
