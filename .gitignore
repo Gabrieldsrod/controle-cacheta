@@ -41,6 +41,9 @@ nbdist/
 # Arquivos do Maven e Gradle
 .mvn/
 .gradle/
+mvnw
+mvnw.cmd
+
 
 # Arquivos do sistema operacional
 .DS_Store
