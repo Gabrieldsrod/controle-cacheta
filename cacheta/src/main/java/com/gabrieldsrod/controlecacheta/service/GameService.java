@@ -74,7 +74,8 @@ public class GameService {
                         table.getStartTime(),
                         table.getEndTime(),
                         table.getGameDurationMinutes(),
-                        table.getTableValue()));
+                        table.getTableValue(),
+                        table.getPlayers()));
 
                 table.setOccupied(false);
                 return;

@@ -3,6 +3,7 @@ package com.gabrieldsrod.controlecacheta.program;
 import com.gabrieldsrod.controlecacheta.entities.Player;
 import com.gabrieldsrod.controlecacheta.entities.Table;
 import com.gabrieldsrod.controlecacheta.service.GameService;
+import com.gabrieldsrod.controlecacheta.service.ReportService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +44,22 @@ public class Application {
         // Finalizar partida
         System.out.println("Finalizando partida na Mesa 1...");
         gameService.endGame(1);
+        System.out.println("");
 
-        // Mostrar extrato dos jogadores
-        for (Player player : mesa1.getPlayers()) {
-            System.out.println("Jogador " + player.getId() +
-                    " jogou " + player.getTotalTimeMinutes() + " minutos e deve R$ " +
-                    String.format("%.2f", player.getTotalValueToPay()));
-        }
+        ReportService reportService = new ReportService();
+
+        reportService.estabilishmentReport(gameService.getFinishedGames());
+
+        System.out.println("");
+        reportService.playerReport(p1, gameService.getFinishedGames());
+
+        System.out.println("");
+        reportService.playerReport(p2, gameService.getFinishedGames());
+
+        System.out.println("");
+        reportService.playerReport(p3, gameService.getFinishedGames());
+
+        System.out.println("");
+        reportService.playerReport(p4, gameService.getFinishedGames());
     }
 }

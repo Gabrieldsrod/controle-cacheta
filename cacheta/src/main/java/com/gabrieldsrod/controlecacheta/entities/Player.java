@@ -42,4 +42,10 @@ public class Player {
         this.totalValueToPay += totalPrice;
         this.totalTimeMinutes += horas * 60;
     }
+
+    public String getFormattedDuration() {
+        int hours = totalTimeMinutes / 60;
+        int minutes = totalTimeMinutes % 60;
+        return String.format("%02d:%02d", hours, minutes);
+    }
 }

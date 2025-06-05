@@ -1,6 +1,8 @@
 package com.gabrieldsrod.controlecacheta.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Game {
     private final int tableNumber;
@@ -8,13 +10,15 @@ public class Game {
     private final LocalDateTime endTime;
     private final int durationMinutes;
     private final double totalValue;
+    private List<Player> players;
 
-    public Game(int tableNumber, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue) {
+    public Game(int tableNumber, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue, List<Player> players) {
         this.tableNumber = tableNumber;
         this.startTime = startTime;
         this.endTime = endTime;
         this.durationMinutes = durationMinutes;
         this.totalValue = totalValue;
+        this.players = players;
     }
 
     public int getTableNumber() {
@@ -37,6 +41,10 @@ public class Game {
         return durationMinutes;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public String getFormattedDuration() {
         int hours = durationMinutes / 60;
         int minutes = durationMinutes % 60;
@@ -44,6 +52,7 @@ public class Game {
     }
 
     public String getFormattedTime() {
-        return startTime.toLocalTime() + " - " + endTime.toLocalTime();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        return dtf.format(startTime.toLocalTime())  + " - " + dtf.format(endTime.toLocalTime());
     }
 }
