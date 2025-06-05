@@ -1,6 +1,6 @@
-package main.java.com.gabrieldsrod.controlecacheta.service;
+package com.gabrieldsrod.controlecacheta.service;
 
-import main.java.com.gabrieldsrod.controlecacheta.entities.Game;
+import com.gabrieldsrod.controlecacheta.entities.Game;
 
 import java.time.LocalDate;
 import java.util.List;

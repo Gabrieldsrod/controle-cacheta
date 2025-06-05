@@ -1,4 +1,4 @@
-package main.java.com.gabrieldsrod.controlecacheta.entities;
+package com.gabrieldsrod.controlecacheta.entities;
 
 import java.time.LocalDateTime;
 
