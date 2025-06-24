@@ -68,3 +68,4 @@ coverage/
 # Outros
 .vscode/
 .metadata/
+/cacheta/target/
