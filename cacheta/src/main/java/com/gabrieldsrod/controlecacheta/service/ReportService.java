@@ -36,6 +36,7 @@ public class ReportService {
         double totalValueToPay = 0.0;
 
         System.out.println(dtf.format(today));
+        System.out.println(player.getName());
 
         for (Game g : games) {
             if (g.getStartTime().toLocalDate().equals(today) && g.getPlayers().contains(player)) {
