@@ -65,6 +65,9 @@ coverage/
 .findbugs
 .pmd
 
+# Arquivos de banco de dados
+*.db
+
 # Outros
 .vscode/
 .metadata/
