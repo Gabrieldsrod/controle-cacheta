@@ -2,17 +2,23 @@ package com.gabrieldsrod.controlecacheta.entities;
 
 public class Player {
     private final Integer id;
+    private final String name;
     private int totalTimeMinutes;
     private double totalValueToPay;
 
-    public Player(Integer id) {
+    public Player(Integer id, String name) {
         this.id = id;
+        this.name = name;
         this.totalTimeMinutes = 0;
         this.totalValueToPay = 0.0;
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getTotalTimeMinutes() {
