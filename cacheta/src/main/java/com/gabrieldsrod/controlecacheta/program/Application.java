@@ -11,10 +11,10 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         // Criar jogadores
-        Player p1 = new Player(1);
-        Player p2 = new Player(2);
-        Player p3 = new Player(3);
-        Player p4 = new Player(4);
+        Player p1 = new Player(1, "Pedro");
+        Player p2 = new Player(2, "Maria");
+        Player p3 = new Player(3, "João");
+        Player p4 = new Player(4, "Adamastor");
 
         // Criar mesa
         Table mesa1 = new Table(1);
