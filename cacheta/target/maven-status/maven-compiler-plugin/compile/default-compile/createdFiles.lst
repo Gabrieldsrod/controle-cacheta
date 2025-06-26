@@ -1,6 +1,0 @@
-com\gabrieldsrod\controlecacheta\program\Application.class
-com\gabrieldsrod\controlecacheta\entities\Player.class
-com\gabrieldsrod\controlecacheta\entities\Table.class
-com\gabrieldsrod\controlecacheta\entities\Game.class
-com\gabrieldsrod\controlecacheta\service\GameService.class
-com\gabrieldsrod\controlecacheta\service\ReportService.class
