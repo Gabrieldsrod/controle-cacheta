@@ -18,12 +18,12 @@ public class ReportService {
             if (g.getStartTime().toLocalDate().equals(today)) {
                 gamesPlayedToday++;
                 System.out.printf("Mesa %d: %s (%s) => R$%.2f\n",
-                        g.getTableNumber(),
+                        g.getTable().getTableNumber(),
                         g.getFormattedTime(),
                         g.getFormattedDuration(),
-                        g.getTotalValue());
+                        g.getGameValue());
 
-                raisedValueToday += g.getTotalValue();
+                raisedValueToday += g.getGameValue();
             }
         }
         System.out.println("Partidas jogadas hoje: " + gamesPlayedToday);
@@ -41,11 +41,11 @@ public class ReportService {
         for (Game g : games) {
             if (g.getStartTime().toLocalDate().equals(today) && g.getPlayers().contains(player)) {
                 double valueToPay = 0.0;
-                valueToPay += g.getTotalValue() / g.getPlayers().size();
+                valueToPay += g.getGameValue() / g.getPlayers().size();
                 totalValueToPay += valueToPay;
 
                 System.out.printf("Mesa %d: %s (%s) => R$%.2f\n",
-                        g.getTableNumber(),
+                        g.getTable().getTableNumber(),
                         g.getFormattedTime(),
                         g.getFormattedDuration(),
                         valueToPay);

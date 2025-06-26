@@ -44,7 +44,7 @@ public class GameService {
 
     public void startGame(int tableNumber) {
         for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && !table.isOccupied() ) {
+            if (table.getTableNumber() == tableNumber && !table.isOccupied()) {
                 table.setOccupied(true);
                 table.setStartTime(LocalDateTime.now());
                 return;
@@ -56,28 +56,35 @@ public class GameService {
     public void endGame(int tableNumber) {
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && table.isOccupied()) {
-                if(table.getStartTime() == null) {
-                    throw new IllegalStateException("Mesa não iniciada corretamente, horário de início não encontrado.");
+                if (table.getStartTime() == null) {
+                    throw new IllegalStateException("Mesa não iniciada corretamente.");
                 }
-                table.setEndTime(LocalDateTime.now());
-                int duration = table.getGameDurationMinutes();
 
-                double totalTableValue = table.calculateTableValue(pricePerHour);
-                table.setTableValue(totalTableValue);
+                LocalDateTime endTime = LocalDateTime.now();
+                int duration = table.getDurationMinutes(endTime);
+
+                Game game = new Game(
+                        table,
+                        table.getStartTime(),
+                        endTime,
+                        duration,
+                        0.0, // valor temporário, será calculado depois
+                        new ArrayList<>(table.getPlayers())
+                );
+
+                double valorTotal = game.calculateGameValue(pricePerHour);
+                game.setGameValue(valorTotal);
 
                 for (Player player : table.getPlayers()) {
                     player.calculatePlayerPayments(pricePerHour, duration);
                 }
 
-                finishedGames.add(new Game(
-                        table.getTableNumber(),
-                        table.getStartTime(),
-                        table.getEndTime(),
-                        table.getGameDurationMinutes(),
-                        table.getTableValue(),
-                        table.getPlayers()));
+                finishedGames.add(game);
 
                 table.setOccupied(false);
+                table.clearPlayers();
+                table.setStartTime(null);
+
                 return;
             }
         }

@@ -12,7 +12,6 @@ public class Table {
     private boolean isOccupied;
     private final List<Player> players;
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
 
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
@@ -48,29 +47,12 @@ public class Table {
         return players;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getGameDurationMinutes() {
-        if (startTime != null && endTime != null) {
-            long duration = Duration.between(startTime, endTime).toMinutes();
-            return (int) duration;
-        } else {
-            return 0;
-        }
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
     public void addPlayer(Player player) {
@@ -89,9 +71,12 @@ public class Table {
         playerCount = 0;
     }
 
-    public double calculateTableValue(double pricePerHour) {
-        int duracao = getGameDurationMinutes();
-        int horas = Math.max(1, (int) Math.ceil(duracao / 60.0));
-        return pricePerHour * horas * getPlayerCount();
+    public int getDurationMinutes(LocalDateTime endTime) {
+        if (startTime != null && endTime != null) {
+            long duration = Duration.between(startTime, endTime).toMinutes();
+            return (int) duration;
+        } else {
+            return 0;
+        }
     }
 }

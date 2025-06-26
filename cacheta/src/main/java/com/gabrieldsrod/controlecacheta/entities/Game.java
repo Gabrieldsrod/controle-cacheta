@@ -5,44 +5,58 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Game {
-    private final int tableNumber;
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
+    private final Table table;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private final int durationMinutes;
-    private final double totalValue;
-    private List<Player> players;
+    private double gameValue;
+    private final List<Player> players;
 
-    public Game(int tableNumber, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue, List<Player> players) {
-        this.tableNumber = tableNumber;
+    public Game(Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue,
+                List<Player> players) {
+        this.table = table;
         this.startTime = startTime;
         this.endTime = endTime;
         this.durationMinutes = durationMinutes;
-        this.totalValue = totalValue;
+        this.gameValue = totalValue;
         this.players = players;
     }
 
-    public int getTableNumber() {
-        return tableNumber;
+    public Table getTable() {
+        return table;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public double getTotalValue() {
-        return totalValue;
+    public void setGameValue(double totalValue) {
+        this.gameValue = totalValue;
     }
 
-    public int getDurationMinutes() {
-        return durationMinutes;
+    public double getGameValue() {
+        return gameValue;
     }
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public double calculateGameValue(double pricePerHour) {
+        int hours = Math.max(1, (int) Math.ceil(durationMinutes / 60.0));
+        return pricePerHour * hours * players.size();
     }
 
     public String getFormattedDuration() {
