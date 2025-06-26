@@ -71,4 +71,6 @@ coverage/
 # Outros
 .vscode/
 .metadata/
+/target/
+/target
 target/
