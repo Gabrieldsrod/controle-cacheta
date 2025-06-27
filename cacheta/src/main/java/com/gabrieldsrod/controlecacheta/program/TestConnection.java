@@ -10,6 +10,7 @@ public class TestConnection {
             if (conn != null) {
                 System.out.println("Conexão com o SQLite estabelecida com sucesso!");
                 System.out.println("Arquivo do banco: cacheta.db");
+                Database.closeConnection();
             } else {
                 System.out.println("Conexão retornou null.");
             }
