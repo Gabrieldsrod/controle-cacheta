@@ -20,7 +20,6 @@ public class PlayerDaoJDBC implements PlayerDao {
     @Override
     public void createPlayer(Player player) {
         PreparedStatement st = null;
-        ResultSet rs = null;
         String sql = "INSERT INTO PLAYER (nome) VALUES (?)";
         try {
             st = conn.prepareStatement(sql);
@@ -30,7 +29,7 @@ public class PlayerDaoJDBC implements PlayerDao {
             int rowsAffected = st.executeUpdate();
 
             if  (rowsAffected > 0) {
-                ResultSet rsPlayer = st.getResultSet();
+                ResultSet rsPlayer = st.getGeneratedKeys();
                 if (rsPlayer.next()) {
                     int id = rsPlayer.getInt(1);
                     player.setId(id);
