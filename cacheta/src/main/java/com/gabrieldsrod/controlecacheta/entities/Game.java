@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Game {
-    private final Table table;
+    private Table table;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private final int durationMinutes;
+    private int durationMinutes;
     private double gameValue;
-    private final List<Player> players;
+    private List<Player> players;
 
     public Game(Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue,
                 List<Player> players) {
@@ -22,8 +22,20 @@ public class Game {
         this.players = players;
     }
 
+    public int getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
     public Table getTable() {
         return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public void setStartTime(LocalDateTime startTime) {
@@ -53,6 +65,11 @@ public class Game {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
 
     public double calculateGameValue(double pricePerHour) {
         int hours = Math.max(1, (int) Math.ceil(durationMinutes / 60.0));

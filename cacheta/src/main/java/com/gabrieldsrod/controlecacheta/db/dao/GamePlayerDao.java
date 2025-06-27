@@ -6,6 +6,7 @@ import com.gabrieldsrod.controlecacheta.entities.Player;
 import java.util.List;
 
 public interface GamePlayerDao {
+
     void insertParticipants(int gameId, List<Integer> playerIds);
     List<Player> getPlayersPerGame(int gameId);
     List<Game> getGamesPerPlayer(int playerId);

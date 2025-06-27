@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-    private final int tableNumber;
+    private int tableNumber;
     private int playerCount = 0;
     private double tableValue = 0.0;
     private boolean isOccupied;
-    private final List<Player> players;
+    private List<Player> players;
     private LocalDateTime startTime;
 
     public Table(int tableNumber) {
@@ -23,8 +23,16 @@ public class Table {
         return tableNumber;
     }
 
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
+    }
+
     public int getPlayerCount() {
         return playerCount;
+    }
+
+    public void setPlayerCount(int playerCount) {
+        this.playerCount = playerCount;
     }
 
     public double getTableValue() {
@@ -45,6 +53,10 @@ public class Table {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public void setStartTime(LocalDateTime startTime) {
