@@ -44,8 +44,8 @@ public class GameService {
 
     public void startGame(int tableNumber) {
         for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && !table.isOccupied()) {
-                table.setOccupied(true);
+            if (table.getTableNumber() == tableNumber && table.getStatus().equals("livre")) {
+                table.setStatus("ocupada");
                 table.setStartTime(LocalDateTime.now());
                 return;
             }
@@ -55,7 +55,7 @@ public class GameService {
 
     public void endGame(int tableNumber) {
         for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && table.isOccupied()) {
+            if (table.getTableNumber() == tableNumber && table.getStatus().equals("ocupada")) {
                 if (table.getStartTime() == null) {
                     throw new IllegalStateException("Mesa não iniciada corretamente.");
                 }
@@ -81,7 +81,7 @@ public class GameService {
 
                 finishedGames.add(game);
 
-                table.setOccupied(false);
+                table.setStatus("livre");
                 table.clearPlayers();
                 table.setStartTime(null);
 

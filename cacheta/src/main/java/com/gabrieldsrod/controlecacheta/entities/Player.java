@@ -6,6 +6,9 @@ public class Player {
     private String name;
     private double totalValueToPay;
 
+    public Player() {
+    }
+
     public Player(String name) {
         this.name = name;
         this.totalTimeMinutes = 0;
@@ -67,5 +70,15 @@ public class Player {
         int hours = totalTimeMinutes / 60;
         int minutes = totalTimeMinutes % 60;
         return String.format("%02d:%02d", hours, minutes);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", totalTimeMinutes=" + totalTimeMinutes +
+                ", name='" + name + '\'' +
+                ", totalValueToPay=" + totalValueToPay +
+                '}';
     }
 }

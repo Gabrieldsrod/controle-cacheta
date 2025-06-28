@@ -12,8 +12,7 @@ public class Game {
     private double gameValue;
     private List<Player> players;
 
-    public Game(Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue,
-                List<Player> players) {
+    public Game(Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue, List<Player> players) {
         this.table = table;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -85,5 +84,17 @@ public class Game {
     public String getFormattedTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         return dtf.format(startTime.toLocalTime())  + " - " + dtf.format(endTime.toLocalTime());
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "table=" + table +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", durationMinutes=" + durationMinutes +
+                ", gameValue=" + gameValue +
+                ", players=" + players +
+                '}';
     }
 }

@@ -9,13 +9,17 @@ public class Table {
     private int tableNumber;
     private int playerCount = 0;
     private double tableValue = 0.0;
-    private boolean isOccupied;
+    private String status;
     private List<Player> players;
     private LocalDateTime startTime;
 
+    public Table() {
+
+    }
+
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
-        this.isOccupied = false;
+        this.status = "livre";
         this.players = new ArrayList<>();
     }
 
@@ -43,12 +47,12 @@ public class Table {
         this.tableValue = tableValue;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOccupied(boolean occupied) {
-        this.isOccupied = occupied;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Player> getPlayers() {
@@ -90,5 +94,17 @@ public class Table {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "tableNumber=" + tableNumber +
+                ", playerCount=" + playerCount +
+                ", tableValue=" + tableValue +
+                ", status='" + status + '\'' +
+                ", players=" + players +
+                ", startTime=" + startTime +
+                '}';
     }
 }
