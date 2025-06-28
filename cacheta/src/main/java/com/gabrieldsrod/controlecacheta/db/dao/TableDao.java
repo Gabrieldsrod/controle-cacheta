@@ -10,5 +10,6 @@ public interface TableDao {
     void updateTableStatus(int id, String status);
     void deleteById(int id);
     Table getById(int id);
+    List<Table> getByStatus(String status);
     List<Table> getAllTables();
 }
