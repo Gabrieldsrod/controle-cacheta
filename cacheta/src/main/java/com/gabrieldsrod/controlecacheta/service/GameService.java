@@ -7,6 +7,7 @@ import com.gabrieldsrod.controlecacheta.entities.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameService {
     private List<Table> tables;
@@ -64,11 +65,12 @@ public class GameService {
                 int duration = table.getDurationMinutes(endTime);
 
                 Game game = new Game(
+                        new Random().nextInt(91) + 10,
                         table,
                         table.getStartTime(),
                         endTime,
                         duration,
-                        0.0, // valor temporário, será calculado depois
+                        0, // valor temporário, será calculado depois
                         new ArrayList<>(table.getPlayers())
                 );
 

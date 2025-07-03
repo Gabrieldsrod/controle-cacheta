@@ -20,12 +20,11 @@ public class PlayerDaoJDBC implements PlayerDao {
     @Override
     public void createPlayer(Player player) {
         PreparedStatement st = null;
-        String sql = "INSERT INTO PLAYER (nome) VALUES (?)";
+        String sql = "INSERT INTO Player (nome) VALUES (?)";
         try {
             st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, player.getName());
-
             int rowsAffected = st.executeUpdate();
 
             if  (rowsAffected > 0) {
@@ -49,9 +48,9 @@ public class PlayerDaoJDBC implements PlayerDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deletePlayerById(int id) {
         PreparedStatement st = null;
-        String sql = "DELETE FROM PLAYER WHERE Player.player_id = ?";
+        String sql = "DELETE FROM Player WHERE Player.player_id = ?";
         try {
             st = conn.prepareStatement(sql);
             st.setInt(1, id);
@@ -70,17 +69,17 @@ public class PlayerDaoJDBC implements PlayerDao {
     }
 
     @Override
-    public Player getById(int id) {
+    public Player getPlayerById(int id) {
         PreparedStatement st = null;
-        ResultSet rs = null;
-        String sql = "SELECT * FROM PLAYER WHERE Player.player_id = ?";
+        ResultSet rsPlayer = null;
+        String sql = "SELECT * FROM Player WHERE player_id = ?";
         try {
             st = conn.prepareStatement(sql);
 
             st.setInt(1, id);
-            rs = st.executeQuery();
-            if (rs.next()) {
-                Player player = instantiatePlayer(rs);
+            rsPlayer = st.executeQuery();
+            if (rsPlayer.next()) {
+                Player player = instantiatePlayer(rsPlayer);
                 return player;
             }
             return null;
@@ -88,7 +87,7 @@ public class PlayerDaoJDBC implements PlayerDao {
             throw new RuntimeException(e);
         }
         finally {
-            Database.closeResultSet(rs);
+            Database.closeResultSet(rsPlayer);
             Database.closeStatement(st);
         }
     }
@@ -96,16 +95,16 @@ public class PlayerDaoJDBC implements PlayerDao {
     @Override
     public List<Player> getAllPlayers() {
         PreparedStatement st = null;
-        ResultSet rs = null;
+        ResultSet rsPlayer = null;
         List<Player> players = new ArrayList<>();
 
-        String sql = "SELECT * FROM 'Player'";
+        String sql = "SELECT * FROM Player";
         try {
             st = conn.prepareStatement(sql);
-            rs = st.executeQuery();
+            rsPlayer = st.executeQuery();
 
-            while (rs.next()) {
-                Player player = instantiatePlayer(rs);
+            while (rsPlayer.next()) {
+                Player player = instantiatePlayer(rsPlayer);
                 players.add(player);
             }
             return players;
@@ -114,7 +113,7 @@ public class PlayerDaoJDBC implements PlayerDao {
             throw new DatabaseException(e.getMessage());
         }
         finally {
-            Database.closeResultSet(rs);
+            Database.closeResultSet(rsPlayer);
             Database.closeStatement(st);
         }
     }

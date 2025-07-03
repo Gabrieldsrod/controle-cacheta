@@ -71,7 +71,7 @@ public class TableDaoJDBC implements TableDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteTableById(int id) {
         PreparedStatement st = null;
         String sql = "DELETE FROM 'Table' WHERE 'Table'.table_id = ?";
         try {
@@ -93,7 +93,7 @@ public class TableDaoJDBC implements TableDao {
     }
 
     @Override
-    public Table getById(int id) {
+    public Table getTableById(int id) {
         PreparedStatement st = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM 'Table' WHERE table_id = ?";
@@ -117,7 +117,7 @@ public class TableDaoJDBC implements TableDao {
     }
 
     @Override
-    public List<Table> getByStatus(String status) {
+    public List<Table> getTableByStatus(String status) {
         PreparedStatement st = null;
         ResultSet rs = null;
         List<Table> tables = new ArrayList<>();

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Game {
+    private int id;
     private Table table;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -12,7 +13,12 @@ public class Game {
     private double gameValue;
     private List<Player> players;
 
-    public Game(Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double totalValue, List<Player> players) {
+    public Game() {
+    }
+
+    public Game(int id, Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes,
+                double totalValue, List<Player> players) {
+        this.id = id;
         this.table = table;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -21,12 +27,21 @@ public class Game {
         this.players = players;
     }
 
-    public int getDurationMinutes() {
-        return durationMinutes;
+    public Game(int id, Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double gameValue) {
+        this.id = id;
+        this.table = table;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.durationMinutes = durationMinutes;
+        this.gameValue = gameValue;
     }
 
-    public void setDurationMinutes(int durationMinutes) {
-        this.durationMinutes = durationMinutes;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Table getTable() {
@@ -53,6 +68,14 @@ public class Game {
         return endTime;
     }
 
+    public int getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
     public void setGameValue(double totalValue) {
         this.gameValue = totalValue;
     }
@@ -68,7 +91,6 @@ public class Game {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
-
 
     public double calculateGameValue(double pricePerHour) {
         int hours = Math.max(1, (int) Math.ceil(durationMinutes / 60.0));
@@ -89,7 +111,8 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-                "table=" + table +
+                "id=" + id +
+                ", table=" + table +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", durationMinutes=" + durationMinutes +

@@ -1,10 +1,16 @@
 package com.gabrieldsrod.controlecacheta.db.dao.impl;
 
+import com.gabrieldsrod.controlecacheta.db.Database;
+import com.gabrieldsrod.controlecacheta.db.DatabaseException;
 import com.gabrieldsrod.controlecacheta.db.dao.GameDao;
+import com.gabrieldsrod.controlecacheta.db.dao.TableDao;
 import com.gabrieldsrod.controlecacheta.entities.Game;
+import com.gabrieldsrod.controlecacheta.entities.Table;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameDaoJDBC implements GameDao {
@@ -16,47 +22,233 @@ public class GameDaoJDBC implements GameDao {
     }
 
     @Override
-    public int createGame(Game game) {
-        return 0;
+    public void createGame(Game game) {
+        PreparedStatement st = null;
+        String sql = "INSERT INTO Game (table_id, start_time, end_time, duration_minutes, total_value) VALUES (?, ?," +
+                " ?, ?, ?)";
+
+        try {
+            st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            st.setInt(1, game.getTable().getTableNumber());
+            st.setString(2, game.getStartTime().toString());
+            st.setString(3, game.getEndTime().toString());
+            st.setInt(4, game.getDurationMinutes());
+            st.setDouble(5, game.getGameValue());
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rsGame = st.getGeneratedKeys();
+                if (rsGame.next()) {
+                    int id = rsGame.getInt(1);
+                    game.setId(id);
+                }
+                Database.closeResultSet(rsGame);
+            } else {
+                throw new DatabaseException("Unexpected error! No rows affected.");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        } finally {
+            Database.closeStatement(st);
+        }
     }
 
     @Override
     public Game getGameById(int id) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rsGame = null;
+        String sql = "SELECT * FROM Game WHERE game_id = ?";
+        try {
+            st = conn.prepareStatement(sql);
+
+            st.setInt(1, id);
+            rsGame = st.executeQuery();
+            if (rsGame.next()) {
+                Game game = instantiateGame(rsGame);
+                return game;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeStatement(st);
+            Database.closeResultSet(rsGame);
+        }
     }
 
     @Override
     public List<Game> getAllGames() {
-        return List.of();
+        PreparedStatement st = null;
+        ResultSet rsGame = null;
+        List<Game> games = new ArrayList<>();
+
+        String sql = "SELECT * FROM Game";
+        try {
+            st = conn.prepareStatement(sql);
+            rsGame = st.executeQuery();
+
+            while(rsGame.next()) {
+                Game game = instantiateGame(rsGame);
+                games.add(game);
+            }
+            return games;
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeResultSet(rsGame);
+            Database.closeStatement(st);
+
+        }
     }
 
     @Override
     public List<Game> getGamesOnDate(LocalDate date) {
-        return List.of();
-    }
+        PreparedStatement st = null;
+        ResultSet rsGame = null;
+        List<Game> games = new ArrayList<>();
 
-    @Override
-    public List<Game> getGamesOnDate(LocalDate startDate, LocalDate endDate) {
-        return List.of();
+        String sql = "SELECT * FROM Game WHERE Date(start_time) = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setString(1, date.toString());
+            rsGame = st.executeQuery();
+
+            while(rsGame.next()) {
+                Game game = instantiateGame(rsGame);
+                games.add(game);
+            }
+            return games;
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeStatement(st);
+            Database.closeResultSet(rsGame);
+        }
     }
 
     @Override
     public List<Game> getGamesPerTable(int tableId) {
-        return List.of();
+        PreparedStatement st = null;
+        ResultSet rsGame = null;
+        List<Game> games = new ArrayList<>();
+
+        String sql = "SELECT * FROM Game WHERE table_id = ? ORDER BY start_time DESC";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setInt(1, tableId);
+            rsGame = st.executeQuery();
+
+            while(rsGame.next()) {
+                Game game = instantiateGame(rsGame);
+                games.add(game);
+            }
+            return games;
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeStatement(st);
+            Database.closeResultSet(rsGame);
+
+        }
     }
 
     @Override
     public double getTotalRaised() {
-        return 0;
+        PreparedStatement st = null;
+        ResultSet rsRaised = null;
+
+        String sql = "SELECT SUM(total_value) FROM Game";
+        try {
+            st = conn.prepareStatement(sql);
+            rsRaised = st.executeQuery();
+
+            if(rsRaised.next()) {
+                double totalRaised = rsRaised.getDouble(1);
+                return totalRaised;
+            }
+            return 0.0;
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeResultSet(rsRaised);
+            Database.closeStatement(st);
+        }
+
     }
 
     @Override
-    public double getTotalRaisedPerTable(int id) {
-        return 0;
+    public double getTotalRaisedPerTable(int tableId) {
+        PreparedStatement st = null;
+        ResultSet rsRaised = null;
+
+        String sql = "SELECT SUM(total_value) FROM Game WHERE table_id = ?";
+        try {
+            st = conn.prepareStatement(sql);
+
+            st.setInt(1, tableId);
+            rsRaised = st.executeQuery();
+
+            if(rsRaised.next()) {
+                double totalRaised = rsRaised.getDouble(1);
+                return totalRaised;
+            }
+            return 0.0;
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeStatement(st);
+            Database.closeResultSet(rsRaised);
+        }
+
     }
 
     @Override
-    public double getTotalRaisedOnDay(int id) {
-        return 0;
+    public double getTotalRaisedOnDay(LocalDate date) {
+        PreparedStatement st = null;
+        ResultSet rsRaised = null;
+
+        String sql = "SELECT SUM(total_value) FROM Game WHERE Date(start_time) = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setString(1, date.toString());
+            rsRaised = st.executeQuery();
+
+            if(rsRaised.next()){
+                double totalRaised = rsRaised.getDouble(1);
+                return totalRaised;
+            }
+            return 0.0;
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeResultSet(rsRaised);
+            Database.closeStatement(st);
+        }
+    }
+
+    private Game instantiateGame(ResultSet rs) throws SQLException {
+        int gameId = rs.getInt("game_id");
+        int tableId = rs.getInt("table_id");
+        LocalDateTime start_time = LocalDateTime.parse(rs.getString("start_time"));
+        LocalDateTime end_time = LocalDateTime.parse(rs.getString("end_time"));
+        int duration = rs.getInt("duration_minutes");
+        double total_value = rs.getDouble("total_value");
+
+        TableDao tableDao = DaoFactory.createTableDao();
+        Table table = tableDao.getTableById(tableId);
+
+        return new Game(gameId, table, start_time, end_time, duration, total_value);
     }
 }

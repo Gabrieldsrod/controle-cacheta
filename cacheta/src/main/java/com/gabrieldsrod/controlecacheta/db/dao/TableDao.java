@@ -8,8 +8,8 @@ public interface TableDao {
 
     void createTable(Table table);
     void updateTableStatus(int id, String status);
-    void deleteById(int id);
-    Table getById(int id);
-    List<Table> getByStatus(String status);
+    void deleteTableById(int id);
+    Table getTableById(int id);
+    List<Table> getTableByStatus(String status);
     List<Table> getAllTables();
 }
