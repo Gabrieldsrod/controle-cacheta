@@ -3,6 +3,7 @@ package com.gabrieldsrod.controlecacheta.db.dao.impl;
 import com.gabrieldsrod.controlecacheta.db.Database;
 import com.gabrieldsrod.controlecacheta.db.DatabaseException;
 import com.gabrieldsrod.controlecacheta.db.dao.TableDao;
+import com.gabrieldsrod.controlecacheta.entities.EntityInstantiator;
 import com.gabrieldsrod.controlecacheta.entities.Table;
 
 import java.sql.*;
@@ -103,7 +104,7 @@ public class TableDaoJDBC implements TableDao {
             st.setInt(1, id);
             rs = st.executeQuery();
             if (rs.next()) {
-                Table table = instantiateTable(rs);
+                Table table = EntityInstantiator.instantiateTable(rs);
                 return table;
             }
             return null;
@@ -129,7 +130,7 @@ public class TableDaoJDBC implements TableDao {
             rs = st.executeQuery();
 
             while (rs.next()) {
-              Table table = instantiateTable(rs);
+              Table table = EntityInstantiator.instantiateTable(rs);
               tables.add(table);
             }
             return tables;
@@ -155,7 +156,7 @@ public class TableDaoJDBC implements TableDao {
             rs = st.executeQuery();
 
             while (rs.next()) {
-                Table table = instantiateTable(rs);
+                Table table = EntityInstantiator.instantiateTable(rs);
                 tables.add(table);
             }
             return tables;
@@ -163,13 +164,5 @@ public class TableDaoJDBC implements TableDao {
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }
-    }
-
-    private Table instantiateTable(ResultSet rs) throws SQLException {
-        Table obj = new Table();
-        obj.setTableNumber(rs.getInt("table_id"));
-        obj.setStatus(rs.getString("status"));
-
-        return obj;
     }
 }

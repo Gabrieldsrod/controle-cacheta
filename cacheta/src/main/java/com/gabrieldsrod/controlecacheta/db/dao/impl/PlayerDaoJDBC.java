@@ -3,6 +3,7 @@ package com.gabrieldsrod.controlecacheta.db.dao.impl;
 import com.gabrieldsrod.controlecacheta.db.Database;
 import com.gabrieldsrod.controlecacheta.db.DatabaseException;
 import com.gabrieldsrod.controlecacheta.db.dao.PlayerDao;
+import com.gabrieldsrod.controlecacheta.entities.EntityInstantiator;
 import com.gabrieldsrod.controlecacheta.entities.Player;
 
 import java.sql.*;
@@ -79,7 +80,7 @@ public class PlayerDaoJDBC implements PlayerDao {
             st.setInt(1, id);
             rsPlayer = st.executeQuery();
             if (rsPlayer.next()) {
-                Player player = instantiatePlayer(rsPlayer);
+                Player player = EntityInstantiator.instantiatePlayer(rsPlayer);
                 return player;
             }
             return null;
@@ -104,7 +105,7 @@ public class PlayerDaoJDBC implements PlayerDao {
             rsPlayer = st.executeQuery();
 
             while (rsPlayer.next()) {
-                Player player = instantiatePlayer(rsPlayer);
+                Player player = EntityInstantiator.instantiatePlayer(rsPlayer);
                 players.add(player);
             }
             return players;
@@ -116,13 +117,5 @@ public class PlayerDaoJDBC implements PlayerDao {
             Database.closeResultSet(rsPlayer);
             Database.closeStatement(st);
         }
-    }
-
-    private Player instantiatePlayer(ResultSet rs) throws SQLException {
-        Player obj = new Player();
-        obj.setId(rs.getInt("player_id"));
-        obj.setName(rs.getString("nome"));
-
-        return obj;
     }
 }

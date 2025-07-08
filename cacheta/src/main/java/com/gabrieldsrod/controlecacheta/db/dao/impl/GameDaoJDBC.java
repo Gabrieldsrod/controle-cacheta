@@ -3,13 +3,11 @@ package com.gabrieldsrod.controlecacheta.db.dao.impl;
 import com.gabrieldsrod.controlecacheta.db.Database;
 import com.gabrieldsrod.controlecacheta.db.DatabaseException;
 import com.gabrieldsrod.controlecacheta.db.dao.GameDao;
-import com.gabrieldsrod.controlecacheta.db.dao.TableDao;
+import com.gabrieldsrod.controlecacheta.entities.EntityInstantiator;
 import com.gabrieldsrod.controlecacheta.entities.Game;
-import com.gabrieldsrod.controlecacheta.entities.Table;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +63,7 @@ public class GameDaoJDBC implements GameDao {
             st.setInt(1, id);
             rsGame = st.executeQuery();
             if (rsGame.next()) {
-                Game game = instantiateGame(rsGame);
+                Game game = EntityInstantiator.instantiateGame(rsGame);
                 return game;
             }
             return null;
@@ -90,7 +88,7 @@ public class GameDaoJDBC implements GameDao {
             rsGame = st.executeQuery();
 
             while(rsGame.next()) {
-                Game game = instantiateGame(rsGame);
+                Game game = EntityInstantiator.instantiateGame(rsGame);
                 games.add(game);
             }
             return games;
@@ -118,7 +116,7 @@ public class GameDaoJDBC implements GameDao {
             rsGame = st.executeQuery();
 
             while(rsGame.next()) {
-                Game game = instantiateGame(rsGame);
+                Game game = EntityInstantiator.instantiateGame(rsGame);
                 games.add(game);
             }
             return games;
@@ -145,7 +143,7 @@ public class GameDaoJDBC implements GameDao {
             rsGame = st.executeQuery();
 
             while(rsGame.next()) {
-                Game game = instantiateGame(rsGame);
+                Game game = EntityInstantiator.instantiateGame(rsGame);
                 games.add(game);
             }
             return games;
@@ -236,19 +234,5 @@ public class GameDaoJDBC implements GameDao {
             Database.closeResultSet(rsRaised);
             Database.closeStatement(st);
         }
-    }
-
-    private Game instantiateGame(ResultSet rs) throws SQLException {
-        int gameId = rs.getInt("game_id");
-        int tableId = rs.getInt("table_id");
-        LocalDateTime start_time = LocalDateTime.parse(rs.getString("start_time"));
-        LocalDateTime end_time = LocalDateTime.parse(rs.getString("end_time"));
-        int duration = rs.getInt("duration_minutes");
-        double total_value = rs.getDouble("total_value");
-
-        TableDao tableDao = DaoFactory.createTableDao();
-        Table table = tableDao.getTableById(tableId);
-
-        return new Game(gameId, table, start_time, end_time, duration, total_value);
     }
 }
