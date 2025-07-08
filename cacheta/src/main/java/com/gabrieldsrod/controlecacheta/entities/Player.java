@@ -11,15 +11,18 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.totalTimeMinutes = 0;
-        this.totalValueToPay = 0.0;
     }
 
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
-        this.totalTimeMinutes = 0;
-        this.totalValueToPay = 0.0;
+    }
+
+    public Player(int id, String name, int totalTimeMinutes, double totalValueToPay) {
+        this.id = id;
+        this.name = name;
+        this.totalTimeMinutes = totalTimeMinutes;
+        this.totalValueToPay = totalValueToPay;
     }
 
     public int getId() {

@@ -17,7 +17,7 @@ public class Application {
         Player p4 = new Player(4, "Adamastor");
 
         // Criar mesa
-        Table mesa1 = new Table(1);
+        Table mesa1 = new Table();
         mesa1.addPlayer(p1);
         mesa1.addPlayer(p2);
         mesa1.addPlayer(p3);

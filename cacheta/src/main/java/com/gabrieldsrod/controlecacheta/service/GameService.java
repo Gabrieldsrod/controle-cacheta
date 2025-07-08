@@ -45,7 +45,7 @@ public class GameService {
 
     public void startGame(int tableNumber) {
         for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && table.getStatus().equals("livre")) {
+            if (table.getTableNumber() == tableNumber && table.getStatus().equals("Livre")) {
                 table.setStatus("ocupada");
                 table.setStartTime(LocalDateTime.now());
                 return;
@@ -56,7 +56,7 @@ public class GameService {
 
     public void endGame(int tableNumber) {
         for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && table.getStatus().equals("ocupada")) {
+            if (table.getTableNumber() == tableNumber && table.getStatus().equals("Ocupada")) {
                 if (table.getStartTime() == null) {
                     throw new IllegalStateException("Mesa não iniciada corretamente.");
                 }
@@ -65,12 +65,11 @@ public class GameService {
                 int duration = table.getDurationMinutes(endTime);
 
                 Game game = new Game(
-                        new Random().nextInt(91) + 10,
                         table,
                         table.getStartTime(),
                         endTime,
                         duration,
-                        0, // valor temporário, será calculado depois
+                        0.0, // valor temporário, será calculado depois
                         new ArrayList<>(table.getPlayers())
                 );
 
@@ -83,7 +82,7 @@ public class GameService {
 
                 finishedGames.add(game);
 
-                table.setStatus("livre");
+                table.setStatus("Livre");
                 table.clearPlayers();
                 table.setStartTime(null);
 

@@ -2,6 +2,7 @@ package com.gabrieldsrod.controlecacheta.entities;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -14,17 +15,7 @@ public class Game {
     private List<Player> players;
 
     public Game() {
-    }
-
-    public Game(int id, Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes,
-                double totalValue, List<Player> players) {
-        this.id = id;
-        this.table = table;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.durationMinutes = durationMinutes;
-        this.gameValue = totalValue;
-        this.players = players;
+        this.players = new ArrayList<>();
     }
 
     public Game(int id, Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double gameValue) {
@@ -34,6 +25,16 @@ public class Game {
         this.endTime = endTime;
         this.durationMinutes = durationMinutes;
         this.gameValue = gameValue;
+        this.players = new ArrayList<>();
+    }
+
+    public Game(Table table, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double gameValue, List<Player> players) {
+        this.table = table;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.durationMinutes = durationMinutes;
+        this.gameValue = gameValue;
+        this.players = players;
     }
 
     public int getId() {

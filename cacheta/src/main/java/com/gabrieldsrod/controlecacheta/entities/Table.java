@@ -14,12 +14,21 @@ public class Table {
     private LocalDateTime startTime;
 
     public Table() {
-
+        this.players = new ArrayList<>();
     }
 
-    public Table(int tableNumber) {
+    public Table(int tableNumber, String status) {
         this.tableNumber = tableNumber;
-        this.status = "livre";
+        this.status = status;
+        this.players = new ArrayList<>();
+    }
+
+    public Table(int tableNumber, int playerCount, double tableValue, String status, LocalDateTime startTime) {
+        this.tableNumber = tableNumber;
+        this.playerCount = playerCount;
+        this.tableValue = tableValue;
+        this.status = status;
+        this.startTime = startTime;
         this.players = new ArrayList<>();
     }
 
