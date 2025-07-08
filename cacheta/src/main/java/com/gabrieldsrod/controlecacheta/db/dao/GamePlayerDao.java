@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GamePlayerDao {
 
-    void insertParticipants(int gameId, List<Integer> playerIds);
+    void insertParticipants(int gameId, List<Player> players);
     List<Player> getPlayersPerGame(int gameId);
     List<Game> getGamesPerPlayer(int playerId);
     double getTotalPaidPerPlayer(int playerId);

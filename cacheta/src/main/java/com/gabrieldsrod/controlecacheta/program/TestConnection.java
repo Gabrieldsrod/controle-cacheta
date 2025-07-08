@@ -2,6 +2,7 @@ package com.gabrieldsrod.controlecacheta.program;
 
 import com.gabrieldsrod.controlecacheta.db.Database;
 import com.gabrieldsrod.controlecacheta.db.dao.GameDao;
+import com.gabrieldsrod.controlecacheta.db.dao.GamePlayerDao;
 import com.gabrieldsrod.controlecacheta.db.dao.PlayerDao;
 import com.gabrieldsrod.controlecacheta.db.dao.TableDao;
 import com.gabrieldsrod.controlecacheta.db.dao.impl.DaoFactory;
@@ -25,6 +26,7 @@ public class TestConnection {
                 PlayerDao playerDao = DaoFactory.createPlayerDao();
                 TableDao tableDao = DaoFactory.createTableDao();
                 GameDao gameDao = DaoFactory.createGameDao();
+                GamePlayerDao gamePlayerDao = DaoFactory.createGamePlayerDao();
 
                 List<Player> players = new ArrayList<>();
                 List<Table> tables = new ArrayList<>();
@@ -101,39 +103,64 @@ public class TestConnection {
 //                    System.out.println(g);
 //                }
 
-                // Testar getGamesOnDate
-                LocalDate data = LocalDate.of(2025, 6, 2);
-                List<Game> gamesOnDate = gameDao.getGamesOnDate(data);
-                System.out.println("Jogos em " + data + ":");
-                for (Game g : gamesOnDate) {
-                    System.out.println(g);
+//                // Testar getGamesOnDate
+//                LocalDate data = LocalDate.of(2025, 6, 2);
+//                List<Game> gamesOnDate = gameDao.getGamesOnDate(data);
+//                System.out.println("Jogos em " + data + ":");
+//                for (Game g : gamesOnDate) {
+//                    System.out.println(g);
+//                }
+//                System.out.println();
+//
+//// Testar getGamesPerTable
+//                int tableId = 1;
+//                List<Game> gamesPerTable = gameDao.getGamesPerTable(tableId);
+//                System.out.println("Jogos na mesa " + tableId + ":");
+//                for (Game g : gamesPerTable) {
+//                    System.out.println(g);
+//                }
+//                System.out.println();
+//
+//// Testar getTotalRaised
+//                double totalRaised = gameDao.getTotalRaised();
+//                System.out.println("Total arrecadado em todas as partidas: R$ " + String.format("%.2f", totalRaised));
+//                System.out.println();
+//
+//// Testar getTotalRaisedPerTable
+//                double totalRaisedPerTable = gameDao.getTotalRaisedPerTable(tableId);
+//                System.out.println("Total arrecadado na mesa " + tableId + ": R$ " + String.format("%.2f", totalRaisedPerTable));
+//                System.out.println();
+//
+//// Testar getTotalRaisedOnDay
+//                double totalRaisedOnDay = gameDao.getTotalRaisedOnDay(data);
+//                System.out.println("Total arrecadado no dia " + data + ": R$ " + String.format("%.2f", totalRaisedOnDay));
+//                System.out.println();
+
+
+                int gameId = 1; // Altere para o ID que quiser testar
+                List<Player> jogadoresNoGame = gamePlayerDao.getPlayersPerGame(gameId);
+                System.out.println("Jogadores no jogo ID " + gameId + ":");
+                for (Player p : jogadoresNoGame) {
+                    System.out.println(p.getId() + " - " + p.getName());
                 }
                 System.out.println();
 
-// Testar getGamesPerTable
-                int tableId = 1;
-                List<Game> gamesPerTable = gameDao.getGamesPerTable(tableId);
-                System.out.println("Jogos na mesa " + tableId + ":");
-                for (Game g : gamesPerTable) {
-                    System.out.println(g);
+                int playerId = 2; // Altere para o ID do jogador que quiser testar
+                List<Game> gamesDoJogador = gamePlayerDao.getGamesPerPlayer(playerId);
+                System.out.println("Partidas do jogador ID " + playerId + ":");
+                for (Game g : gamesDoJogador) {
+                    System.out.println("Game ID: " + g.getId() + ", Data: " + g.getStartTime());
                 }
                 System.out.println();
 
-// Testar getTotalRaised
-                double totalRaised = gameDao.getTotalRaised();
-                System.out.println("Total arrecadado em todas as partidas: R$ " + String.format("%.2f", totalRaised));
+                int playerIdTempo = 2; // Altere para o ID do jogador que quiser testar
+                int tempoTotal = gamePlayerDao.getTotalTimePerPlayer(playerIdTempo);
+                System.out.println("Tempo total jogado pelo jogador ID " + playerIdTempo + ": " + tempoTotal + " minutos");
                 System.out.println();
 
-// Testar getTotalRaisedPerTable
-                double totalRaisedPerTable = gameDao.getTotalRaisedPerTable(tableId);
-                System.out.println("Total arrecadado na mesa " + tableId + ": R$ " + String.format("%.2f", totalRaisedPerTable));
-                System.out.println();
-
-// Testar getTotalRaisedOnDay
-                double totalRaisedOnDay = gameDao.getTotalRaisedOnDay(data);
-                System.out.println("Total arrecadado no dia " + data + ": R$ " + String.format("%.2f", totalRaisedOnDay));
-                System.out.println();
-
+                int playerIdPagamento = 2; // Altere para o ID do jogador que quiser testar
+                double totalPago = gamePlayerDao.getTotalPaidPerPlayer(playerIdPagamento);
+                System.out.println("Total a pagar pelo jogador ID " + playerIdPagamento + ": R$ " + String.format("%.2f", totalPago));
                 System.out.println();
 
                 Database.closeConnection();
