@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Table {
     private int tableNumber;
@@ -103,6 +104,18 @@ public class Table {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Table table = (Table) o;
+        return tableNumber == table.tableNumber && playerCount == table.playerCount && Double.compare(tableValue, table.tableValue) == 0 && Objects.equals(status, table.status) && Objects.equals(players, table.players) && Objects.equals(startTime, table.startTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tableNumber, playerCount, tableValue, status, players, startTime);
     }
 
     @Override

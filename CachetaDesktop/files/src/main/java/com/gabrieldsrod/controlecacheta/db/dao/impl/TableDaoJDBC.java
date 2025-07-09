@@ -7,6 +7,7 @@ import com.gabrieldsrod.controlecacheta.entities.EntityInstantiator;
 import com.gabrieldsrod.controlecacheta.entities.Table;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,25 @@ public class TableDaoJDBC implements TableDao {
             if (rowAffected > 0) {
                 System.out.println("Changed table " + id + " status");
             }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            Database.closeStatement(st);
+        }
+    }
+
+    @Override
+    public void updateTableStartTime(int id, LocalDateTime startTime) {
+        PreparedStatement st = null;
+
+        String sql = "Update 'Table' SET start_time = ? WHERE table_id = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setString(1, startTime.toString());
+            st.setInt(2,id);
+            st.executeUpdate();
 
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());

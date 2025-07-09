@@ -1,26 +1,34 @@
 package com.gabrieldsrod.controlecacheta.service;
 
+import com.gabrieldsrod.controlecacheta.db.dao.GameDao;
+import com.gabrieldsrod.controlecacheta.db.dao.GamePlayerDao;
+import com.gabrieldsrod.controlecacheta.db.dao.TableDao;
 import com.gabrieldsrod.controlecacheta.entities.Game;
 import com.gabrieldsrod.controlecacheta.entities.Player;
 import com.gabrieldsrod.controlecacheta.entities.Table;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GameService {
     private List<Table> tables;
-    private final List<Game> finishedGames = new ArrayList<>();
     private double pricePerHour = 15.00;
 
-    public GameService(List<Table> tables) {
-        this.tables = tables;
+    private TableDao tableDao;
+    private GameDao gameDao;
+    private GamePlayerDao gamePlayerDao;
+
+    public GameService(TableDao tableDao, GameDao gameDao, GamePlayerDao gamePlayerDao) {
+        this.tables = new ArrayList<>();
+        this.tableDao = tableDao;
+        this.gameDao = gameDao;
+        this.gamePlayerDao = gamePlayerDao;
     }
 
-    public GameService(List<Table> tables, double pricePerHour) {
-        this.tables = tables;
-        this.pricePerHour = pricePerHour;
+    public void loadTables() {
+        this.tables = tableDao.getAllTables();
     }
 
     public List<Table> getTables() {
@@ -31,10 +39,6 @@ public class GameService {
         this.tables = tables;
     }
 
-    public List<Game> getFinishedGames() {
-        return finishedGames;
-    }
-
     public double getPricePerHour() {
         return pricePerHour;
     }
@@ -43,11 +47,45 @@ public class GameService {
         this.pricePerHour = pricePerHour;
     }
 
+    public List<Game> getFinishedGames() {
+        return gameDao.getAllGames();
+    }
+
+    public List<Game> getTodayGames() {
+        return gameDao.getGamesOnDate(LocalDate.now());
+    }
+
+    public List<Game> getDateGames(LocalDate date) {
+        return gameDao.getGamesOnDate(date);
+    }
+
+    public List<Game> getGamesPerTable(int tableNumber) {
+        return gameDao.getGamesPerTable(tableNumber);
+    }
+
+    public double getTotalRaised() {
+        return gameDao.getTotalRaised();
+    }
+
+    public double getTotalRaisedToday() {
+        return gameDao.getTotalRaisedOnDay(LocalDate.now());
+    }
+
+    public double getTotalRaisedPerTable(int tableNumber) {
+        return gameDao.getTotalRaisedPerTable(tableNumber);
+    }
+
     public void startGame(int tableNumber) {
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && table.getStatus().equals("Livre")) {
-                table.setStatus("ocupada");
-                table.setStartTime(LocalDateTime.now());
+                LocalDateTime startTime = LocalDateTime.now();
+                String status = "Ocupada";
+                table.setStatus(status);
+                table.setStartTime(startTime);
+
+                tableDao.updateTableStatus(tableNumber, status);
+                tableDao.updateTableStartTime(tableNumber, startTime);
+
                 return;
             }
         }
@@ -73,6 +111,7 @@ public class GameService {
                         new ArrayList<>(table.getPlayers())
                 );
 
+
                 double valorTotal = game.calculateGameValue(pricePerHour);
                 game.setGameValue(valorTotal);
 
@@ -80,16 +119,20 @@ public class GameService {
                     player.calculatePlayerPayments(pricePerHour, duration);
                 }
 
-                finishedGames.add(game);
+                gameDao.createGame(game);
+                gamePlayerDao.insertParticipants(game.getId(), game.getPlayers());
+
+                tableDao.updateTableStatus(tableNumber, "Livre");
+                tableDao.updateTableStartTime(tableNumber, null);
 
                 table.setStatus("Livre");
                 table.clearPlayers();
                 table.setStartTime(null);
 
+                System.out.println("Partida encerrada na mesa " + tableNumber + " com sucesso.");
                 return;
             }
         }
         throw new IllegalArgumentException("Mesa não encontrada ou já está livre.");
     }
-
 }

@@ -1,5 +1,7 @@
 package com.gabrieldsrod.controlecacheta.entities;
 
+import java.util.Objects;
+
 public class Player {
     private int id;
     private int totalTimeMinutes;
@@ -73,6 +75,18 @@ public class Player {
         int hours = totalTimeMinutes / 60;
         int minutes = totalTimeMinutes % 60;
         return String.format("%02d:%02d", hours, minutes);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return id == player.id && totalTimeMinutes == player.totalTimeMinutes && Double.compare(totalValueToPay, player.totalValueToPay) == 0 && Objects.equals(name, player.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, totalTimeMinutes, name, totalValueToPay);
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Game {
     private int id;
@@ -107,6 +108,18 @@ public class Game {
     public String getFormattedTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         return dtf.format(startTime.toLocalTime())  + " - " + dtf.format(endTime.toLocalTime());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return id == game.id && durationMinutes == game.durationMinutes && Double.compare(gameValue, game.gameValue) == 0 && Objects.equals(table, game.table) && Objects.equals(startTime, game.startTime) && Objects.equals(endTime, game.endTime) && Objects.equals(players, game.players);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, table, startTime, endTime, durationMinutes, gameValue, players);
     }
 
     @Override

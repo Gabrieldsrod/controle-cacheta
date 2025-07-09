@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f9195ebc-b980-4ca5-9156-e6b2c9259545" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/Database.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/DatabaseException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/GameDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/GamePlayerDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/PlayerDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/TableDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/impl/DaoFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/impl/GameDaoJDBC.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/impl/GamePlayerDaoJDBC.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/impl/PlayerDaoJDBC.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/db/dao/impl/TableDaoJDBC.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/entities/EntityInstantiator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/entities/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/entities/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/entities/Table.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/program/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/program/TestConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/service/GameService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cacheta/src/main/java/com/gabrieldsrod/controlecacheta/service/ReportService.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Gabrieldsrod&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Gabrieldsrod/controle-cacheta.git&quot;,
+    &quot;accountId&quot;: &quot;bc34954d-efa3-4457-9cae-5284c59acfb8&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;7b0815ff&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2xnM9zelTChdTl4vk0cK0yRmXdX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [-v].executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [exec:java...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [wrapper:wrapper].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cacheta [exec:java...].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jackb/IdeaProjects/controle-cacheta&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.sqlOptions&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jackb\IdeaProjects\controle-cacheta" />
+      <recent name="C:\Users\jackb\IdeaProjects\controle-cacheta\cacheta" />
+      <recent name="C:\Users\jackb\IdeaProjects\controle-cacheta\cacheta\src\main\java" />
+      <recent name="C:\Users\jackb\IdeaProjects\controle-cacheta\cacheta\src\main\java\com" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="com.gabrieldsrod.controlecacheta.db.dao" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.TestConnection">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.gabrieldsrod.controlecacheta.program.Application" />
+      <module name="cacheta" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gabrieldsrod.controlecacheta.program.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../Program Files/Java/zulu21.40.17-ca-jdk21.0.6-win_x64" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.gabrieldsrod.controlecacheta.program.TestConnection" />
+      <module name="controle-cacheta" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gabrieldsrod.controlecacheta.program.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="cacheta" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="cacheta" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="cacheta" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="cacheta" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="cacheta" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Autodetect">
+      <module name="cacheta" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="cacheta" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestConnection" />
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9195ebc-b980-4ca5-9156-e6b2c9259545" name="Changes" comment="" />
+      <created>1748569236843</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748569236843</updated>
+      <workItem from="1748569238324" duration="1502000" />
+      <workItem from="1748647313864" duration="122000" />
+      <workItem from="1748647454151" duration="171000" />
+      <workItem from="1748891897157" duration="4471000" />
+      <workItem from="1748909224384" duration="3080000" />
+      <workItem from="1748921213636" duration="1573000" />
+      <workItem from="1748922814273" duration="733000" />
+      <workItem from="1748960281181" duration="4311000" />
+      <workItem from="1748964910462" duration="3778000" />
+      <workItem from="1749153536265" duration="24000" />
+      <workItem from="1749153570185" duration="440000" />
+      <workItem from="1749154127090" duration="9746000" />
+      <workItem from="1749165959151" duration="89000" />
+      <workItem from="1749571503663" duration="615000" />
+      <workItem from="1750794107985" duration="578000" />
+      <workItem from="1750797082023" duration="1326000" />
+      <workItem from="1750804922807" duration="1504000" />
+      <workItem from="1750880509026" duration="670000" />
+      <workItem from="1750881949586" duration="1116000" />
+      <workItem from="1750915014394" duration="35000" />
+      <workItem from="1750915115576" duration="194000" />
+      <workItem from="1750963262924" duration="4323000" />
+      <workItem from="1750968639812" duration="7603000" />
+      <workItem from="1750994620872" duration="4405000" />
+      <workItem from="1750999078991" duration="34000" />
+      <workItem from="1750999116102" duration="131000" />
+      <workItem from="1750999265468" duration="9000" />
+      <workItem from="1750999337359" duration="85000" />
+      <workItem from="1750999446576" duration="209000" />
+      <workItem from="1750999660813" duration="710000" />
+      <workItem from="1751000618616" duration="957000" />
+      <workItem from="1751048968608" duration="659000" />
+      <workItem from="1751051822277" duration="5074000" />
+      <workItem from="1751069685788" duration="4372000" />
+      <workItem from="1751075001484" duration="64000" />
+      <workItem from="1751557328547" duration="11332000" />
+      <workItem from="1751584087138" duration="277000" />
+      <workItem from="1751901639354" duration="9235000" />
+      <workItem from="1751984128438" duration="6516000" />
+      <workItem from="1751997356417" duration="7601000" />
+      <workItem from="1752081629341" duration="1151000" />
+      <workItem from="1752082913566" duration="130000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

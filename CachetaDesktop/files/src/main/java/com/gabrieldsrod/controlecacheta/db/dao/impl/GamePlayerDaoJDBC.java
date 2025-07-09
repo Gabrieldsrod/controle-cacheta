@@ -154,5 +154,9 @@ public class GamePlayerDaoJDBC implements GamePlayerDao {
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }
+        finally {
+            Database.closeStatement(st);
+            Database.closeResultSet(rsTime);
+        }
     }
 }
