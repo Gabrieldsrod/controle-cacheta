@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.gabrieldsrod.cacheta"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -32,6 +32,9 @@ android {
 }
 
 dependencies {
+
+    implementation (libs.room.runtime)
+    annotationProcessor (libs.room.compiler)
 
     implementation(libs.appcompat)
     implementation(libs.material)

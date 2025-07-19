@@ -25,7 +25,7 @@ public class ReportService {
 
                 System.out.printf(
                         "Mesa %d: %s (%s) => R$ %.2f%n",
-                        g.getTable().getTableNumber(),
+                        g.getTableId(),
                         g.getFormattedTime(),
                         g.getFormattedDuration(),
                         g.getGameValue()
@@ -62,7 +62,7 @@ public class ReportService {
 
                 System.out.printf(
                         "Mesa %d: %s (%s) => R$ %.2f%n",
-                        g.getTable().getTableNumber(),
+                        g.getTableId(),
                         g.getFormattedTime(),
                         g.getFormattedDuration(),
                         valueToPay

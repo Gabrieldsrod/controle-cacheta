@@ -1,33 +1,45 @@
 package com.gabrieldsrod.cacheta.entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity(tableName = "Table")
 public class Table {
+    @PrimaryKey(autoGenerate = true)
     private int tableNumber;
-    private int playerCount = 0;
-    private double tableValue = 0.0;
-    private String status;
-    private List<Player> players;
+    @ColumnInfo(name = "status")
+    private String status = "Livre";
+    @ColumnInfo(name = "start_time")
     private LocalDateTime startTime;
+    @Ignore
+    private int playerCount = 0;
+    @Ignore
+    private List<Player> players;
 
     public Table() {
         this.players = new ArrayList<>();
     }
 
-    public Table(int tableNumber, String status) {
+    @Ignore
+    public Table(int tableNumber) {
         this.tableNumber = tableNumber;
-        this.status = status;
+        this.status = "Livre";
         this.players = new ArrayList<>();
+        this.playerCount = 0;
     }
 
+    @Ignore
     public Table(int tableNumber, int playerCount, double tableValue, String status, LocalDateTime startTime) {
         this.tableNumber = tableNumber;
         this.playerCount = playerCount;
-        this.tableValue = tableValue;
         this.status = status;
         this.startTime = startTime;
         this.players = new ArrayList<>();
@@ -47,14 +59,6 @@ public class Table {
 
     public void setPlayerCount(int playerCount) {
         this.playerCount = playerCount;
-    }
-
-    public double getTableValue() {
-        return tableValue;
-    }
-
-    public void setTableValue(double tableValue) {
-        this.tableValue = tableValue;
     }
 
     public String getStatus() {
@@ -110,12 +114,12 @@ public class Table {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Table table = (Table) o;
-        return tableNumber == table.tableNumber && playerCount == table.playerCount && Double.compare(tableValue, table.tableValue) == 0 && Objects.equals(status, table.status) && Objects.equals(players, table.players) && Objects.equals(startTime, table.startTime);
+        return tableNumber == table.tableNumber && playerCount == table.playerCount && Objects.equals(status, table.status) && Objects.equals(players, table.players) && Objects.equals(startTime, table.startTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tableNumber, playerCount, tableValue, status, players, startTime);
+        return Objects.hash(tableNumber, playerCount, status, players, startTime);
     }
 
     @Override
@@ -123,7 +127,6 @@ public class Table {
         return "Table{" +
                 "tableNumber=" + tableNumber +
                 ", playerCount=" + playerCount +
-                ", tableValue=" + tableValue +
                 ", status='" + status + '\'' +
                 ", players=" + players +
                 ", startTime=" + startTime +

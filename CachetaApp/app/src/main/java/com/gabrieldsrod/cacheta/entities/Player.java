@@ -1,25 +1,39 @@
 package com.gabrieldsrod.cacheta.entities;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.Objects;
 
+@Entity(tableName = "Player")
 public class Player {
+    @PrimaryKey(autoGenerate = true)
     private int id;
-    private int totalTimeMinutes;
+    @ColumnInfo(name = "name")
     private String name;
+    @Ignore
+    private int totalTimeMinutes;
+    @Ignore
     private double totalValueToPay;
 
     public Player() {
     }
 
+    @Ignore
     public Player(String name) {
         this.name = name;
     }
 
+    @Ignore
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    @Ignore
     public Player(int id, String name, int totalTimeMinutes, double totalValueToPay) {
         this.id = id;
         this.name = name;
@@ -89,6 +103,7 @@ public class Player {
         return Objects.hash(id, totalTimeMinutes, name, totalValueToPay);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Player{" +

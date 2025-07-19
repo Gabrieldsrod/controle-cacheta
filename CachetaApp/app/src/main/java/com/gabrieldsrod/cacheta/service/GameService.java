@@ -4,6 +4,7 @@ import com.gabrieldsrod.cacheta.db.dao.GameDao;
 import com.gabrieldsrod.cacheta.db.dao.GamePlayerDao;
 import com.gabrieldsrod.cacheta.db.dao.TableDao;
 import com.gabrieldsrod.cacheta.entities.Game;
+import com.gabrieldsrod.cacheta.entities.GamePlayer;
 import com.gabrieldsrod.cacheta.entities.Player;
 import com.gabrieldsrod.cacheta.entities.Table;
 
@@ -68,11 +69,19 @@ public class GameService {
     }
 
     public double getTotalRaisedToday() {
-        return gameDao.getTotalRaisedOnDay(LocalDate.now());
+        return gameDao.getTotalRaisedOnDate(LocalDate.now());
     }
 
     public double getTotalRaisedPerTable(int tableNumber) {
         return gameDao.getTotalRaisedPerTable(tableNumber);
+    }
+
+    public void insertParticipants(int gameId, List<Player> players) {
+        List<GamePlayer> list = new ArrayList<>();
+        for (Player player : players) {
+            list.add(new GamePlayer(gameId, player.getId()));
+        }
+        gamePlayerDao.insertAll(list);
     }
 
     public void startGame(int tableNumber) {
@@ -103,14 +112,13 @@ public class GameService {
                 int duration = table.getDurationMinutes(endTime);
 
                 Game game = new Game(
-                        table,
+                        tableNumber,
                         table.getStartTime(),
                         endTime,
                         duration,
                         0.0, // valor temporário, será calculado depois
                         new ArrayList<>(table.getPlayers())
                 );
-
 
                 double valorTotal = game.calculateGameValue(pricePerHour);
                 game.setGameValue(valorTotal);
@@ -120,7 +128,7 @@ public class GameService {
                 }
 
                 gameDao.createGame(game);
-                gamePlayerDao.insertParticipants(game.getId(), game.getPlayers());
+                insertParticipants(game.getId(), game.getPlayers());
 
                 tableDao.updateTableStatus(tableNumber, "Livre");
                 tableDao.updateTableStartTime(tableNumber, null);
