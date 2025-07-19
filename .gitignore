@@ -1,0 +1,66 @@
+# Diretórios de build (não devem ser versionados)
+build/
+*/build/
+.gradle/
+
+# Arquivos de cache e logs
+.idea/caches/
+.idea/logs/
+.idea/shelf/
+*.iml
+*.log
+
+# Configurações locais do IntelliJ/Android Studio
+.idea/workspace.xml
+../.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/gradle.xml
+.idea/.name
+.idea/dictionaries/project.xml
+.idea/gradle.xml
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+*.DS_Store
+*.bak
+
+# Arquivos de configuração pessoal
+.local.properties
+.gradle/
+**/local.properties
+
+# Arquivos de lock e distribuição que podem ser resolvidos novamente
+# (remova esses se quiser versionar controle exato das libs)
+# gradle/libs.versions.toml
+# gradle.lockfile
+
+# Cache de dependências e compilação
+.cxx/
+.kotlinc/
+captures/
+outputs/
+
+# Configurações de execução específicas da IDE
+.idea/runConfigurations/
+
+# Arquivos e pastas desnecessários do sistema operacional
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE configs (não versionar)
+.idea/
+*.iml
+
+# Ignorar arquivos não essenciais da IDE
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
