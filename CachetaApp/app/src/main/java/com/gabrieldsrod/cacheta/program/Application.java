@@ -1,13 +1,5 @@
 package com.gabrieldsrod.cacheta.program;
 
-import com.gabrieldsrod.cacheta.entities.Player;
-import com.gabrieldsrod.cacheta.entities.Table;
-import com.gabrieldsrod.cacheta.service.GameService;
-import com.gabrieldsrod.cacheta.service.ReportService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Application {
     public static void main(String[] args) {
 //        // Criar jogadores

@@ -1,8 +1,6 @@
 package com.gabrieldsrod.cacheta.db.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.DeleteColumn;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -24,7 +22,7 @@ public interface TableDao {
     void updateTableStartTime(int id, LocalDateTime startTime);
 
     @Query("DELETE FROM `Table` WHERE tableNumber = :id")
-    int deleteTableById(int id);
+    void deleteTableById(int id);
 
     @Query("SELECT * FROM `Table` WHERE tableNumber = :id")
     Table getTableById(int id);

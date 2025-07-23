@@ -1,35 +1,33 @@
 package com.gabrieldsrod.cacheta.service;
 
-import com.gabrieldsrod.cacheta.db.dao.GameDao;
-import com.gabrieldsrod.cacheta.db.dao.GamePlayerDao;
-import com.gabrieldsrod.cacheta.db.dao.TableDao;
 import com.gabrieldsrod.cacheta.entities.Game;
-import com.gabrieldsrod.cacheta.entities.GamePlayer;
 import com.gabrieldsrod.cacheta.entities.Player;
 import com.gabrieldsrod.cacheta.entities.Table;
+import com.gabrieldsrod.cacheta.entities.service.GamePlayerService;
+import com.gabrieldsrod.cacheta.entities.service.GameService;
+import com.gabrieldsrod.cacheta.entities.service.TableService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameService {
+public class MatchService {
     private List<Table> tables;
     private double pricePerHour = 15.00;
 
-    private TableDao tableDao;
-    private GameDao gameDao;
-    private GamePlayerDao gamePlayerDao;
+    private final TableService tableService;
+    private final GameService gameService;
+    private final GamePlayerService gamePlayerService;
 
-    public GameService(TableDao tableDao, GameDao gameDao, GamePlayerDao gamePlayerDao) {
+    public MatchService(TableService tableService, GameService gameService, GamePlayerService gamePlayerService) {
         this.tables = new ArrayList<>();
-        this.tableDao = tableDao;
-        this.gameDao = gameDao;
-        this.gamePlayerDao = gamePlayerDao;
+        this.tableService = tableService;
+        this.gameService = gameService;
+        this.gamePlayerService = gamePlayerService;
     }
 
     public void loadTables() {
-        this.tables = tableDao.getAllTables();
+        this.tables = tableService.getALlTables();
     }
 
     public List<Table> getTables() {
@@ -47,43 +45,7 @@ public class GameService {
     public void setPricePerHour(double pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
-
-    public List<Game> getFinishedGames() {
-        return gameDao.getAllGames();
-    }
-
-    public List<Game> getTodayGames() {
-        return gameDao.getGamesOnDate(LocalDate.now());
-    }
-
-    public List<Game> getDateGames(LocalDate date) {
-        return gameDao.getGamesOnDate(date);
-    }
-
-    public List<Game> getGamesPerTable(int tableNumber) {
-        return gameDao.getGamesPerTable(tableNumber);
-    }
-
-    public double getTotalRaised() {
-        return gameDao.getTotalRaised();
-    }
-
-    public double getTotalRaisedToday() {
-        return gameDao.getTotalRaisedOnDate(LocalDate.now());
-    }
-
-    public double getTotalRaisedPerTable(int tableNumber) {
-        return gameDao.getTotalRaisedPerTable(tableNumber);
-    }
-
-    public void insertParticipants(int gameId, List<Player> players) {
-        List<GamePlayer> list = new ArrayList<>();
-        for (Player player : players) {
-            list.add(new GamePlayer(gameId, player.getId()));
-        }
-        gamePlayerDao.insertAll(list);
-    }
-
+    
     public void startGame(int tableNumber) {
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && table.getStatus().equals("Livre")) {
@@ -92,8 +54,7 @@ public class GameService {
                 table.setStatus(status);
                 table.setStartTime(startTime);
 
-                tableDao.updateTableStatus(tableNumber, status);
-                tableDao.updateTableStartTime(tableNumber, startTime);
+                tableService.occupyTable(tableNumber);
 
                 return;
             }
@@ -127,11 +88,10 @@ public class GameService {
                     player.calculatePlayerPayments(pricePerHour, duration);
                 }
 
-                gameDao.createGame(game);
-                insertParticipants(game.getId(), game.getPlayers());
+                gameService.createGame(game);
+                gamePlayerService.insertParticipants(game.getId(), game.getPlayers());
 
-                tableDao.updateTableStatus(tableNumber, "Livre");
-                tableDao.updateTableStartTime(tableNumber, null);
+                tableService.freeTable(tableNumber);
 
                 table.setStatus("Livre");
                 table.clearPlayers();

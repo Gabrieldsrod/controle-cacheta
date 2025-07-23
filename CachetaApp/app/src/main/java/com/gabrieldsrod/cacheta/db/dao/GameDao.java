@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.gabrieldsrod.cacheta.entities.Game;
+import com.gabrieldsrod.cacheta.entities.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,10 +33,19 @@ public interface GameDao {
     @Query("SELECT SUM(game_value) FROM Game")
     double getTotalRaised();
 
-    @Query("SELECT SUM(game_value) FROM Game WHERE table_id = :tableid")
-    double getTotalRaisedPerTable(int tableid);
-
     @Query("SELECT SUM(game_value) FROM Game WHERE Date(start_time) = :date")
     double getTotalRaisedOnDate(LocalDate date);
+
+    @Query("SELECT SUM(game_value) FROM Game WHERE table_id = :tableid")
+    double getTotalRaisedPerTableId(int tableid);
+
+    @Query("SELECT SUM(game_value) FROM Game WHERE table_id = :tableid AND DATE(start_time) = :date")
+    double getTotalRaisedPerTableIdOnDate(int tableid, LocalDate date);
+
+    @Query("SELECT table_id, SUM(game_value) AS total FROM Game GROUP BY table_id")
+    List<TablePayment> getTotalRaisedPerTable();
+
+    @Query("SELECT table_id, SUM(game_value) AS total FROM Game WHERE DATE(start_time) = :date GROUP BY table_id")
+    List<TablePayment> getTotalRaisedPerTableOnDate(LocalDate date);
 
 }

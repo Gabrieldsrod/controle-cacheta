@@ -64,3 +64,5 @@ $RECYCLE.BIN/
 # Ignorar arquivos não essenciais da IDE
 !.idea/codeStyles/
 !.idea/inspectionProfiles/
+
+.idea/gradle.xml
