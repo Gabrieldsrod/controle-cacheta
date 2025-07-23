@@ -9,7 +9,7 @@ import androidx.room.Query;
 import com.gabrieldsrod.cacheta.entities.Game;
 import com.gabrieldsrod.cacheta.entities.GamePlayer;
 import com.gabrieldsrod.cacheta.entities.Player;
-import com.gabrieldsrod.cacheta.entities.TablePayment;
+import com.gabrieldsrod.cacheta.db.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;

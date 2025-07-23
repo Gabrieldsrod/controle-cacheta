@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class TableService {
-    private TableDao tableDao;
+    private final TableDao tableDao;
 
     public TableService(TableDao tableDao) {
         this.tableDao = tableDao;

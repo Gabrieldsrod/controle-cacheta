@@ -45,16 +45,30 @@ public class MatchService {
     public void setPricePerHour(double pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
-    
+
     public void startGame(int tableNumber) {
+        loadTables();
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && table.getStatus().equals("Livre")) {
                 LocalDateTime startTime = LocalDateTime.now();
                 String status = "Ocupada";
                 table.setStatus(status);
                 table.setStartTime(startTime);
-
                 tableService.occupyTable(tableNumber);
+
+                Game game = new Game(
+                        tableNumber,
+                        table.getStartTime(),
+                        null,
+                        0,
+                        0.0, // valor temporário, será calculado depois
+                        table.getPlayers()
+                );
+
+                long gameId = gameService.createGame(game);
+                game.setId((int) gameId);
+
+                gamePlayerService.insertParticipants(game.getId(), game.getPlayers());
 
                 return;
             }
@@ -63,6 +77,7 @@ public class MatchService {
     }
 
     public void endGame(int tableNumber) {
+        loadTables();
         for (Table table : tables) {
             if (table.getTableNumber() == tableNumber && table.getStatus().equals("Ocupada")) {
                 if (table.getStartTime() == null) {
@@ -72,30 +87,17 @@ public class MatchService {
                 LocalDateTime endTime = LocalDateTime.now();
                 int duration = table.getDurationMinutes(endTime);
 
-                Game game = new Game(
-                        tableNumber,
-                        table.getStartTime(),
-                        endTime,
-                        duration,
-                        0.0, // valor temporário, será calculado depois
-                        new ArrayList<>(table.getPlayers())
-                );
+                Game game = gameService.getLastGameByTable(tableNumber);
 
                 double valorTotal = game.calculateGameValue(pricePerHour);
                 game.setGameValue(valorTotal);
 
-                for (Player player : table.getPlayers()) {
-                    player.calculatePlayerPayments(pricePerHour, duration);
-                }
-
-                gameService.createGame(game);
-                gamePlayerService.insertParticipants(game.getId(), game.getPlayers());
-
-                tableService.freeTable(tableNumber);
+                gameService.updateGame(game);
 
                 table.setStatus("Livre");
                 table.clearPlayers();
                 table.setStartTime(null);
+                tableService.freeTable(tableNumber);
 
                 System.out.println("Partida encerrada na mesa " + tableNumber + " com sucesso.");
                 return;

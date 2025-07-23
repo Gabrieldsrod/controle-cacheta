@@ -5,9 +5,10 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.gabrieldsrod.cacheta.entities.Game;
-import com.gabrieldsrod.cacheta.entities.TablePayment;
+import com.gabrieldsrod.cacheta.db.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +17,10 @@ import java.util.List;
 public interface GameDao {
 
     @Insert(onConflict = REPLACE)
-    void createGame(Game game);
+    long createGame(Game game);
+
+    @Update
+    int updateGame(Game game);
 
     @Query("SELECT * FROM Game WHERE id = :gameId")
     Game getGameById(int gameId);
@@ -29,6 +33,9 @@ public interface GameDao {
 
     @Query("SELECT * FROM Game WHERE table_id = :tableId ORDER BY start_time DESC")
     List<Game> getGamesPerTable(int tableId);
+
+    @Query("SELECT * FROM Game WHERE table_id = :tableId ORDER BY start_time DESC LIMIT 1")
+    Game getLastGameByTable(int tableId);
 
     @Query("SELECT SUM(game_value) FROM Game")
     double getTotalRaised();
@@ -48,4 +55,6 @@ public interface GameDao {
     @Query("SELECT table_id, SUM(game_value) AS total FROM Game WHERE DATE(start_time) = :date GROUP BY table_id")
     List<TablePayment> getTotalRaisedPerTableOnDate(LocalDate date);
 
+    @Query("SELECT COUNT(DISTINCT table_id) FROM Game WHERE Date(start_time) = :date")
+    int getTotalOccupiedTables(LocalDate date);
 }

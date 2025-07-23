@@ -1,4 +1,4 @@
-package com.gabrieldsrod.cacheta.entities;
+package com.gabrieldsrod.cacheta.db.dto;
 
 public class TablePayment {
     public int table_id;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/inputPlayer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jogador 1"
+        style="@style/Widget.AppCompat.EditText"/>
+
+    <EditText
+        android:id="@+id/inputPlayer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jogador 2"
+        style="@style/Widget.AppCompat.EditText"/>
+
+    <EditText
+        android:id="@+id/inputPlayer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jogador 3"
+        style="@style/Widget.AppCompat.EditText"/>
+
+    <EditText
+        android:id="@+id/inputPlayer4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jogador 4"
+        style="@style/Widget.AppCompat.EditText"/>
+
+</LinearLayout>

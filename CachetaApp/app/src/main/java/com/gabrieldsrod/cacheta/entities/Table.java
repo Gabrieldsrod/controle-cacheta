@@ -1,5 +1,6 @@
 package com.gabrieldsrod.cacheta.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -122,6 +123,7 @@ public class Table {
         return Objects.hash(tableNumber, playerCount, status, players, startTime);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Table{" +

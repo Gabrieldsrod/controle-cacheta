@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="marrom">#4B2E1B</color>
+    <color name="verde_mesa">#1E4D2B</color>
+    <color name="branco_gelo">#F1F1F1</color>
+    <color name="Ocupada">#AB2E2E</color>
+    <color name="Livre">#2BA000</color>
 </resources>

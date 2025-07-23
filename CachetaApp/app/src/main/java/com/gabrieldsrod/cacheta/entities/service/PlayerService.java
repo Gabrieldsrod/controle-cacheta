@@ -13,8 +13,8 @@ public class PlayerService {
         this.playerDao = playerDao;
     }
 
-    public void createPlayer(Player player) {
-        playerDao.createPlayer(player);
+    public long createPlayer(Player player) {
+        return playerDao.createPlayer(player);
     }
 
     public Player getPlayerById(int id) {
@@ -41,6 +41,10 @@ public class PlayerService {
     public boolean deletePlayer(int id) {
         playerDao.deletePlayerById(id);
         return true;
+    }
+
+    public Player findByName(String name) {
+        return playerDao.getPlayerByName(name);
     }
 }
 

@@ -13,10 +13,13 @@ import java.util.List;
 @Dao
 public interface PlayerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void createPlayer(Player player);
+    long createPlayer(Player player);
 
     @Query("SELECT * FROM Player WHERE id = :id")
     Player getPlayerById(int id);
+
+    @Query("SELECT * FROM Player WHERE name = :name;")
+    Player getPlayerByName(String name);
 
     @Query("SELECT * FROM Player")
     List<Player> getAllPlayers();
