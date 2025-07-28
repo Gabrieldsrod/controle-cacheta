@@ -9,28 +9,44 @@
         android:id="@+id/inputPlayer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:padding="15dp"
         android:hint="Jogador 1"
+        android:textColorHint="#D94B4B4B"
+        android:textColor="@color/black"
         style="@style/Widget.AppCompat.EditText"/>
 
     <EditText
         android:id="@+id/inputPlayer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:padding="15dp"
         android:hint="Jogador 2"
+        android:textColorHint="#D94B4B4B"
+        android:textColor="@color/black"
         style="@style/Widget.AppCompat.EditText"/>
 
     <EditText
         android:id="@+id/inputPlayer3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:padding="15dp"
         android:hint="Jogador 3"
+        android:textColorHint="#D94B4B4B"
+        android:textColor="@color/black"
         style="@style/Widget.AppCompat.EditText"/>
 
     <EditText
         android:id="@+id/inputPlayer4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:padding="15dp"
         android:hint="Jogador 4"
+        android:textColorHint="#D94B4B4B"
+        android:textColor="@color/black"
         style="@style/Widget.AppCompat.EditText"/>
 
 </LinearLayout>

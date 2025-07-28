@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@drawable/container_rectangle"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    >
 
     <TextView
         android:id="@+id/txtMesaNumero"
@@ -17,6 +18,7 @@
         android:text="Mesa 1"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="Livre"
         android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

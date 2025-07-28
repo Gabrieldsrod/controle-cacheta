@@ -18,7 +18,7 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="Gerenciamento de Mesas"
-            android:textColor="#F1F1F1"
+            android:textColor="@color/white"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/marrom"
+        android:textColor="@color/white"
         android:text="Adicionar Mesa"
         android:layout_margin="8dp" />
 </LinearLayout>

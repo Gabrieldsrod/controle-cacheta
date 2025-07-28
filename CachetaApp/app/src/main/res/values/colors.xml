@@ -7,4 +7,7 @@
     <color name="branco_gelo">#F1F1F1</color>
     <color name="Ocupada">#AB2E2E</color>
     <color name="Livre">#2BA000</color>
+    <color name="verde_iniciar">#33C300</color>
+    <color name="vermelho_encerrar">#810303</color>
+    <color name="cinza_claro">#908D8D</color>
 </resources>
