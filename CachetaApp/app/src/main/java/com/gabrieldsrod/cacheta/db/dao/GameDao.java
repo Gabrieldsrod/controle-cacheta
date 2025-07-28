@@ -8,7 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.gabrieldsrod.cacheta.entities.Game;
-import com.gabrieldsrod.cacheta.db.dto.TablePayment;
+import com.gabrieldsrod.cacheta.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.gabrieldsrod.cacheta.entities.service;
 
 import com.gabrieldsrod.cacheta.db.dao.GameDao;
 import com.gabrieldsrod.cacheta.entities.Game;
-import com.gabrieldsrod.cacheta.db.dto.TablePayment;
+import com.gabrieldsrod.cacheta.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;

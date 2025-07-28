@@ -82,7 +82,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
             holder.txtCronometro.setVisibility(View.VISIBLE);
             holder.txtValorMesa.setVisibility(View.VISIBLE);
 
-            // Remove callback anterior se existir
             if (runnableMap.containsKey(tableNumber)) {
                 handler.removeCallbacks(Objects.requireNonNull(runnableMap.get(tableNumber)));
             }
