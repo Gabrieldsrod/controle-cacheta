@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReportService {
     private final GameService gameService;
@@ -38,7 +39,10 @@ public class ReportService {
     }
 
     public PlayerSummary playerReport(Player player) {
-        List<Game> gamesToday = gamePlayerService.getGamesPerPlayerToday(player.getId());
+        List<Game> gamesToday = gamePlayerService.getGamesPerPlayerToday(player.getId())
+                                                                        .stream()
+                                                                        .distinct()
+                                                                        .collect(Collectors.toList());
         List<MatchSummary> matchList = new ArrayList<>();
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 

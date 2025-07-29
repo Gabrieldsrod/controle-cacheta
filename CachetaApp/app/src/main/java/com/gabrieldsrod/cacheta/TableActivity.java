@@ -67,7 +67,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
 
         init();
 
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setLayoutManager(new LinearLayoutManager(context));
         adapter = new TableAdapter(context, tablesList, this);
         recycler.setAdapter(adapter);
 
@@ -138,7 +138,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
             }
 
             mesa.setPlayers(jogadores);
-            matchService.startGame(mesa.getTableNumber());
+            matchService.startGame(mesa);
             refreshTables();
         });
 
@@ -168,7 +168,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
                 .setMessage("Deseja encerrar a partida da Mesa " + mesa.getTableNumber() + "?")
                 .setPositiveButton("Encerrar", (dialog, which) -> {
                     try {
-                        matchService.endGame(mesa.getTableNumber());
+                        matchService.endGame(mesa);
                         refreshTables();
                     } catch (Exception e) {
                         Toast.makeText(context, "Erro ao encerrar partida: " + e.getMessage(), Toast.LENGTH_SHORT).show();

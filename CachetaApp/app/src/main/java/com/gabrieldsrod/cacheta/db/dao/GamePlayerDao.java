@@ -9,7 +9,6 @@ import androidx.room.Query;
 import com.gabrieldsrod.cacheta.entities.Game;
 import com.gabrieldsrod.cacheta.entities.GamePlayer;
 import com.gabrieldsrod.cacheta.entities.Player;
-import com.gabrieldsrod.cacheta.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,10 +23,10 @@ public interface GamePlayerDao {
     "WHERE gp.game_id = :gameId")
     List<Player> getPlayersPerGame(int gameId);
 
-    @Query("SELECT g.* FROM Game g INNER JOIN GamePlayer gp ON game_id = gp.game_id WHERE gp.player_id = :playerId ORDER BY g.start_time DESC")
+    @Query("SELECT g.* FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId ORDER BY g.start_time DESC")
     List<Game> getGamesPerPlayer(int playerId);
 
-    @Query("SELECT g.* FROM Game g INNER JOIN GamePlayer gp ON game_id = gp.game_id WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date ORDER BY g.start_time DESC")
+    @Query("SELECT DISTINCT g.* FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date ORDER BY g.start_time DESC")
     List<Game> getGamesPerPlayerOnDate(int playerId, LocalDate date);
 
     @Query("SELECT SUM(g.game_value / (SELECT COUNT(*) FROM GamePlayer WHERE game_id = g.id)) FROM Game g JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId")
@@ -41,18 +40,4 @@ public interface GamePlayerDao {
 
     @Query("SELECT SUM(g.duration_minutes) FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date")
     int getTotalTimePerPlayerOnDate(int playerId, LocalDate date);
-
-    @Query("SELECT g.table_id, " +
-            "SUM(g.game_value / (SELECT COUNT(*) FROM GamePlayer WHERE game_id = g.id)) AS total " +
-            "FROM Game g JOIN GamePlayer gp ON g.id = gp.game_id " +
-            "WHERE gp.player_id = :playerId " +
-            "GROUP BY g.table_id")
-    List<TablePayment> getTotalPaidPerPlayerPerTable(int playerId);
-
-    @Query("SELECT g.table_id, " +
-            "SUM(g.game_value / (SELECT COUNT(*) FROM GamePlayer WHERE game_id = g.id)) AS total " +
-            "FROM Game g JOIN GamePlayer gp ON g.id = gp.game_id " +
-            "WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date " +
-            "GROUP BY g.table_id")
-    List<TablePayment> getTotalPaidPerPlayerPerTableOnDate(int playerId, LocalDate date);
 }

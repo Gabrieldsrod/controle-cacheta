@@ -2,7 +2,6 @@ package com.gabrieldsrod.cacheta.entities.service;
 
 import com.gabrieldsrod.cacheta.db.dao.GameDao;
 import com.gabrieldsrod.cacheta.entities.Game;
-import com.gabrieldsrod.cacheta.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +18,8 @@ public class GameService {
         return gameDao.createGame(game);
     }
 
-    public int updateGame(Game game) {
-        return gameDao.updateGame(game);
+    public void updateGame(Game game) {
+        gameDao.updateGame(game);
     }
 
     public Game getGameById(int id) {
@@ -61,14 +60,6 @@ public class GameService {
 
     public double getTotalRaisedToday() {
         return gameDao.getTotalRaisedOnDate(LocalDate.now());
-    }
-
-    public List<TablePayment> getTotalRaisedPerTable() {
-        return gameDao.getTotalRaisedPerTable();
-    }
-
-    public List<TablePayment> getTotalRaisedPerTable(LocalDate date) {
-        return gameDao.getTotalRaisedPerTableOnDate(date);
     }
     public double getTotalRaisedPerTable(int tableNumber) {
         return gameDao.getTotalRaisedPerTableId(tableNumber);

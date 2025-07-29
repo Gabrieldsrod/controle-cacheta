@@ -4,7 +4,6 @@ import com.gabrieldsrod.cacheta.db.dao.GamePlayerDao;
 import com.gabrieldsrod.cacheta.entities.Game;
 import com.gabrieldsrod.cacheta.entities.GamePlayer;
 import com.gabrieldsrod.cacheta.entities.Player;
-import com.gabrieldsrod.cacheta.dto.TablePayment;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,17 +67,5 @@ public class GamePlayerService {
 
     public int getTotalPlayTimeForPlayerToday(int playerId) {
         return getTotalPlayTimeForPlayer(playerId, LocalDate.now());
-    }
-
-    public List<TablePayment> getTotalPaidPerPlayerPerTable(int playerId) {
-        return gamePlayerDao.getTotalPaidPerPlayerPerTable(playerId);
-    }
-
-    public List<TablePayment> getTotalPaidPerPlayerPerTable(int playerId, LocalDate date) {
-        return gamePlayerDao.getTotalPaidPerPlayerPerTableOnDate(playerId, date);
-    }
-
-    public List<TablePayment> getTotalPaidPerPlayerPerTableToday(int playerId) {
-        return getTotalPaidPerPlayerPerTable(playerId, LocalDate.now());
     }
 }

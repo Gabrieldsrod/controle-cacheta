@@ -28,11 +28,9 @@ public class Game {
     private int durationMinutes;
     @ColumnInfo(name = "game_value")
     private double gameValue;
-    @Ignore
-    private List<Player> players;
 
     public Game() {
-        this.players = new ArrayList<>();
+
     }
 
     @Ignore
@@ -43,17 +41,15 @@ public class Game {
         this.endTime = endTime;
         this.durationMinutes = durationMinutes;
         this.gameValue = gameValue;
-        this.players = new ArrayList<>();
     }
 
     @Ignore
-    public Game(int tableId, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double gameValue, List<Player> players) {
+    public Game(int tableId, LocalDateTime startTime, LocalDateTime endTime, int durationMinutes, double gameValue) {
         this.tableId = tableId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.durationMinutes = durationMinutes;
         this.gameValue = gameValue;
-        this.players = players;
     }
 
     public int getId() {
@@ -104,17 +100,9 @@ public class Game {
         return gameValue;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
     public double calculateGameValue(double pricePerHour) {
         int hours = Math.max(1, (int) Math.ceil(durationMinutes / 60.0));
-        return pricePerHour * hours * players.size();
+        return pricePerHour * hours * 4;
     }
 
     @SuppressLint("DefaultLocale")
@@ -133,12 +121,12 @@ public class Game {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return id == game.id && durationMinutes == game.durationMinutes && Double.compare(gameValue, game.gameValue) == 0 && Objects.equals(tableId, game.tableId) && Objects.equals(startTime, game.startTime) && Objects.equals(endTime, game.endTime) && Objects.equals(players, game.players);
+        return id == game.id && durationMinutes == game.durationMinutes && Double.compare(gameValue, game.gameValue) == 0 && Objects.equals(tableId, game.tableId) && Objects.equals(startTime, game.startTime) && Objects.equals(endTime, game.endTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tableId, startTime, endTime, durationMinutes, gameValue, players);
+        return Objects.hash(id, tableId, startTime, endTime, durationMinutes, gameValue);
     }
 
     @NonNull
@@ -151,7 +139,6 @@ public class Game {
                 ", endTime=" + endTime +
                 ", durationMinutes=" + durationMinutes +
                 ", gameValue=" + gameValue +
-                ", players=" + players +
                 '}';
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_marginBottom="3dp">
+
+    <TextView
+        android:id="@+id/txtNomeJogador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extrato Individual (Ana):"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/marrom" />
+
+    <TextView
+        android:id="@+id/txtData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Data: 15/10/2023"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+
+    <TextView
+        android:id="@+id/txtPartidas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="• Mesa 3: 11:00 - 12:00 (1 horas)\n• Mesa 3: 14:00 - 16:30 (3 horas)"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/txtTotalPagar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Valor devido: R$ 60.00"
+        android:textStyle="bold"
+        android:textColor="@color/vermelho_encerrar"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp" />
+</LinearLayout>

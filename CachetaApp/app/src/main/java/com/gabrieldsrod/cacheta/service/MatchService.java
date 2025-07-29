@@ -13,8 +13,7 @@ import java.util.List;
 
 public class MatchService {
     private List<Table> tables;
-    private double pricePerHour = 15.00;
-
+    private double pricePerHour = 10.0;
     private final TableService tableService;
     private final GameService gameService;
     private final GamePlayerService gamePlayerService;
@@ -46,63 +45,64 @@ public class MatchService {
         this.pricePerHour = pricePerHour;
     }
 
-    public void startGame(int tableNumber) {
+    public void startGame(Table table) {
         loadTables();
-        for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && table.getStatus().equals("Livre")) {
-                LocalDateTime startTime = LocalDateTime.now();
-                String status = "Ocupada";
-                table.setStatus(status);
-                table.setStartTime(startTime);
-                tableService.occupyTable(tableNumber);
 
-                Game game = new Game(
-                        tableNumber,
-                        table.getStartTime(),
-                        null,
-                        0,
-                        0.0, // valor temporário, será calculado depois
-                        table.getPlayers()
-                );
+        if (table.getStatus().equals("Livre")) {
+            LocalDateTime startTime = LocalDateTime.now();
+            String status = "Ocupada";
+            table.setStatus(status);
+            table.setStartTime(startTime);
+            tableService.occupyTable(table.getTableNumber());
 
-                long gameId = gameService.createGame(game);
-                game.setId((int) gameId);
+            Game game = new Game(
+                    table.getTableNumber(),
+                    table.getStartTime(),
+                    null,
+                    0,
+                    0.0 // valor temporário, será calculado depois
+            );
 
-                gamePlayerService.insertParticipants(game.getId(), game.getPlayers());
+            long gameId = gameService.createGame(game);
+            game.setId((int) gameId);
 
-                return;
-            }
+            gamePlayerService.insertParticipants(game.getId(), table.getPlayers());
+
+            return;
+
         }
         throw new IllegalArgumentException("Mesa não encontrada ou já está ocupada.");
     }
 
-    public void endGame(int tableNumber) {
+    public void endGame(Table table) {
         loadTables();
-        for (Table table : tables) {
-            if (table.getTableNumber() == tableNumber && table.getStatus().equals("Ocupada")) {
-                if (table.getStartTime() == null) {
-                    throw new IllegalStateException("Mesa não iniciada corretamente.");
-                }
 
-                LocalDateTime endTime = LocalDateTime.now();
-                int duration = table.getDurationMinutes(endTime);
-
-                Game game = gameService.getLastGameByTable(tableNumber);
-
-                double valorTotal = game.calculateGameValue(pricePerHour);
-                game.setGameValue(valorTotal);
-
-                gameService.updateGame(game);
-
-                table.setStatus("Livre");
-                table.clearPlayers();
-                table.setStartTime(null);
-                tableService.freeTable(tableNumber);
-
-                System.out.println("Partida encerrada na mesa " + tableNumber + " com sucesso.");
-                return;
+        if (table.getStatus().equals("Ocupada")) {
+            if (table.getStartTime() == null) {
+                throw new IllegalStateException("Mesa não iniciada corretamente.");
             }
+
+            LocalDateTime endTime = LocalDateTime.now();
+            int duration = table.getDurationMinutes(endTime);
+
+            Game game = gameService.getLastGameByTable(table.getTableNumber());
+
+            game.setEndTime(endTime);
+            game.setDurationMinutes(duration);
+            double valorTotal = game.calculateGameValue(pricePerHour);
+            game.setGameValue(valorTotal);
+
+            gameService.updateGame(game);
+
+            table.setStatus("Livre");
+            table.clearPlayers();
+            table.setStartTime(null);
+            tableService.freeTable(table.getTableNumber());
+
+            System.out.println("Partida encerrada na mesa " + table.getTableNumber() + " com sucesso.");
+            return;
         }
+
         throw new IllegalArgumentException("Mesa não encontrada ou já está livre.");
     }
 }
