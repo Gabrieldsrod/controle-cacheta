@@ -5,5 +5,6 @@ import com.gabrieldsrod.cacheta.entities.Table;
 public interface TableInteractionListener {
     void onIniciarPartida(Table mesa);
     void onEncerrarPartida(Table mesa);
+    void onRemoverMesa(Table mesa);
 }
 

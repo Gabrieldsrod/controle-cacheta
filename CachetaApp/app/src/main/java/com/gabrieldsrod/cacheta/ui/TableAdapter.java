@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
     private final List<Table> tables;
     private final Context context;
     private final TableInteractionListener listener;
-
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Map<Integer, Runnable> runnableMap = new HashMap<>();
 
@@ -44,6 +44,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
 
     public static class TableViewHolder extends RecyclerView.ViewHolder {
         TextView txtNumeroMesa, txtStatusMesa, txtCronometro, txtValorMesa;
+        ImageButton btnRemoverMesa;
 
         public TableViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +52,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
             txtStatusMesa = itemView.findViewById(R.id.txtStatusMesa);
             txtCronometro = itemView.findViewById(R.id.txtCronometro);
             txtValorMesa = itemView.findViewById(R.id.txtValorMesa);
+            btnRemoverMesa = itemView.findViewById(R.id.btnRemoverMesa);
         }
     }
 
@@ -69,6 +71,15 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
         holder.txtNumeroMesa.setText("Mesa " + tableNumber);
         holder.txtStatusMesa.setText(table.getStatus());
 
+        if ("Ocupada".equalsIgnoreCase(table.getStatus())) {
+            holder.btnRemoverMesa.setVisibility(View.GONE);
+        } else {
+            holder.btnRemoverMesa.setVisibility(View.VISIBLE);
+        }
+        holder.btnRemoverMesa.setOnClickListener(v -> {
+            listener.onRemoverMesa(table);
+        });
+
         holder.itemView.setOnClickListener(v -> {
             if ("Livre".equalsIgnoreCase(table.getStatus())) {
                 listener.onIniciarPartida(table);
@@ -85,6 +96,8 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
             if (runnableMap.containsKey(tableNumber)) {
                 handler.removeCallbacks(Objects.requireNonNull(runnableMap.get(tableNumber)));
             }
+
+            final long[] lastNotifiedHour = {0};
 
             Runnable updateRunnable = new Runnable() {
                 long lastNotifiedHour = 0;

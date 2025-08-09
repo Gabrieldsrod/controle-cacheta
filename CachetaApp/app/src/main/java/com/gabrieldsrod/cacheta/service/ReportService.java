@@ -43,6 +43,10 @@ public class ReportService {
                                                                         .stream()
                                                                         .distinct()
                                                                         .collect(Collectors.toList());
+
+        if (gamesToday.isEmpty()) {
+            return null;
+        }
         List<MatchSummary> matchList = new ArrayList<>();
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 

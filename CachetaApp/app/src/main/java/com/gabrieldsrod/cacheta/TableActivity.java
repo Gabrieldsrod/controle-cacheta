@@ -52,7 +52,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
 
         GameService gameService = new GameService(database.gameDao());
         GamePlayerService gamePlayerService = new GamePlayerService(database.gamePlayerDao());
-        tableService = new TableService(database.tableDao());
+        tableService = new TableService(database.tableDao(), gameService);
         playerService = new PlayerService(database.playerDao());
 
         matchService = new MatchService(tableService, gameService, gamePlayerService);
@@ -93,11 +93,11 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
     }
 
     @Override
-    public void onIniciarPartida(Table mesa) {
+    public void onIniciarPartida(Table table) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         TextView customTitle = new TextView(context);
-        customTitle.setText("Iniciar Partida - Mesa " + mesa.getTableNumber());
+        customTitle.setText("Iniciar Partida - Mesa " + table.getTableNumber());
         customTitle.setPadding(60, 40, 40, 0);
         customTitle.setTextSize(24);
         customTitle.setTypeface(null, Typeface.BOLD);
@@ -137,8 +137,8 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
                 jogadores.add(player);
             }
 
-            mesa.setPlayers(jogadores);
-            matchService.startGame(mesa);
+            table.setPlayers(jogadores);
+            matchService.startGame(table);
             refreshTables();
         });
 
@@ -155,7 +155,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
     }
 
     @Override
-    public void onEncerrarPartida(Table mesa) {
+    public void onEncerrarPartida(Table table) {
         TextView customTitle = new TextView(context);
         customTitle.setText("Encerrar partida?");
         customTitle.setPadding(60, 40, 40, 0);
@@ -163,12 +163,12 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
         customTitle.setTypeface(null, Typeface.BOLD);
         customTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
 
-        AlertDialog endGameDialog = new AlertDialog.Builder(context)
+        AlertDialog endGameDialog = new AlertDialog.Builder(context , R.style.DialogStyle)
                 .setCustomTitle(customTitle)
-                .setMessage("Deseja encerrar a partida da Mesa " + mesa.getTableNumber() + "?")
+                .setMessage("Deseja encerrar a partida da Mesa " + table.getTableNumber() + "?")
                 .setPositiveButton("Encerrar", (dialog, which) -> {
                     try {
-                        matchService.endGame(mesa);
+                        matchService.endGame(table);
                         refreshTables();
                     } catch (Exception e) {
                         Toast.makeText(context, "Erro ao encerrar partida: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -177,10 +177,49 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
                 .setNegativeButton("Cancelar", null)
                 .create();
 
+        Objects.requireNonNull(endGameDialog.getWindow()).setBackgroundDrawableResource(R.drawable.container_rectangle);
         endGameDialog.show();
 
         Button positiveButton = endGameDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         Button negativeButton = endGameDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        positiveButton.setTextColor(ContextCompat.getColor(context, R.color.vermelho_encerrar));
+        negativeButton.setTextColor(ContextCompat.getColor(context, R.color.cinza_claro));
+    }
+
+    @Override
+    public void onRemoverMesa(Table mesa) {
+        TextView customTitle = new TextView(context);
+        customTitle.setText("Remover mesa?");
+        customTitle.setPadding(60, 40, 40, 0);
+        customTitle.setTextSize(24);
+        customTitle.setTypeface(null, Typeface.BOLD);
+        customTitle.setTextColor(ContextCompat.getColor(context, R.color.black));
+
+        AlertDialog removeTableDialog = new AlertDialog.Builder(context, R.style.DialogStyle)
+                .setCustomTitle(customTitle)
+                .setMessage("Deseja remover a mesa " + mesa.getTableNumber() + "?")
+                .setPositiveButton("Remover", (dialog, which) -> {
+                    try {
+                        boolean sucesso = tableService.removeTable(mesa.getTableNumber());
+                        if (sucesso) {
+                            refreshTables();
+                            Toast.makeText(context, "Mesa removida", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Erro ao remover mesa", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IllegalStateException e) {
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .create();
+
+        Objects.requireNonNull(removeTableDialog.getWindow()).setBackgroundDrawableResource(R.drawable.container_rectangle);
+        removeTableDialog.show();
+
+        Button positiveButton = removeTableDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        Button negativeButton = removeTableDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
         positiveButton.setTextColor(ContextCompat.getColor(context, R.color.vermelho_encerrar));
         negativeButton.setTextColor(ContextCompat.getColor(context, R.color.cinza_claro));
