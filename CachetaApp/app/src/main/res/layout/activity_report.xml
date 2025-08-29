@@ -68,6 +68,12 @@
             android:paddingVertical="3dp"
             android:text="..."/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRelatorioMesas"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
     <LinearLayout

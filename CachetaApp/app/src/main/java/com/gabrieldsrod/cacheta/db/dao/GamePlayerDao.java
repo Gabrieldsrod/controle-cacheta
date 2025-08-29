@@ -2,6 +2,7 @@ package com.gabrieldsrod.cacheta.db.dao;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
+import androidx.annotation.Nullable;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -23,21 +24,77 @@ public interface GamePlayerDao {
     "WHERE gp.game_id = :gameId")
     List<Player> getPlayersPerGame(int gameId);
 
-    @Query("SELECT g.* FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId ORDER BY g.start_time DESC")
+    @Query("SELECT g.* FROM Game g " +
+            "INNER JOIN GamePlayer gp ON g.id = gp.game_id " +
+            "WHERE gp.player_id = :playerId ORDER BY g.start_time DESC")
     List<Game> getGamesPerPlayer(int playerId);
 
-    @Query("SELECT DISTINCT g.* FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date ORDER BY g.start_time DESC")
+    @Query("SELECT DISTINCT g.* FROM Game g " +
+            "INNER JOIN GamePlayer gp " +
+            "ON g.id = gp.game_id " +
+            "WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date " +
+            "ORDER BY g.start_time DESC")
     List<Game> getGamesPerPlayerOnDate(int playerId, LocalDate date);
 
-    @Query("SELECT SUM(g.game_value / (SELECT COUNT(*) FROM GamePlayer WHERE game_id = g.id)) FROM Game g JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId")
+    @Query("SELECT SUM(g.game_value / (SELECT COUNT(*) FROM GamePlayer WHERE game_id = g.id)) " +
+            "FROM Game g " +
+            "JOIN GamePlayer gp " +
+            "ON g.id = gp.game_id " +
+            "WHERE gp.player_id = :playerId")
     double getTotalPaidPerPlayer(int playerId);
 
-    @Query("SELECT SUM(g.game_value / (SELECT COUNT(*) FROM GamePlayer WHERE game_id = g.id)) FROM Game g JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId  AND DATE(g.start_time) = :date")
+    @Query("SELECT SUM(g.game_value / (SELECT COUNT(*) " +
+            "FROM GamePlayer " +
+            "WHERE game_id = g.id)) " +
+            "FROM Game g " +
+            "JOIN GamePlayer gp ON g.id = gp.game_id " +
+            "WHERE gp.player_id = :playerId " +
+            "AND DATE(g.start_time) = :date")
     double getTotalPaidPerPlayerOnDate(int playerId, LocalDate date);
 
-    @Query("SELECT SUM(g.duration_minutes) FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId")
+    @Query("SELECT SUM(g.duration_minutes) " +
+            "FROM Game g " +
+            "INNER JOIN GamePlayer gp " +
+            "ON g.id = gp.game_id " +
+            "WHERE gp.player_id = :playerId")
     int getTotalTimePerPlayer(int playerId);
 
-    @Query("SELECT SUM(g.duration_minutes) FROM Game g INNER JOIN GamePlayer gp ON g.id = gp.game_id WHERE gp.player_id = :playerId AND DATE(g.start_time) = :date")
+    @Query("SELECT SUM(g.duration_minutes) " +
+            "FROM Game g " +
+            "INNER JOIN GamePlayer gp " +
+            "ON g.id = gp.game_id " +
+            "WHERE gp.player_id = :playerId " +
+            "AND DATE(g.start_time) = :date")
     int getTotalTimePerPlayerOnDate(int playerId, LocalDate date);
+
+//    @Query("SELECT gp.player_id " +
+//            "FROM Game g " +
+//            "JOIN GamePlayer gp ON gp.game_id = g.id " +
+//            "WHERE g.table_id = :tableId " +
+//            "AND DATE(g.start_time) = :date " +
+//            "GROUP BY gp.player_id " +
+//            "ORDER BY SUM(g.duration_minutes) DESC " +
+//            "LIMIT 1")
+//    int getTopPlayerIdForTableOnDate(int tableId, LocalDate date);
+
+    @Query("SELECT gp.player_id " +
+            "FROM Game g " +
+    "JOIN GamePlayer gp ON gp.game_id = g.id " +
+    "WHERE g.table_id = :tableId " +
+    "AND g.start_time >= :startIso " +
+    "AND g.start_time <  :endIso " +
+    "GROUP BY gp.player_id " +
+    "ORDER BY SUM(COALESCE(g.duration_minutes, 0)) DESC " +
+    "LIMIT 1 ")
+    @Nullable
+    Integer getTopPlayerIdOnDate(int tableId, String startIso, String endIso);
+
+    @Query("SELECT COALESCE(SUM(g.duration_minutes), 0) " +
+            "FROM Game g " +
+            "JOIN GamePlayer gp ON gp.game_id = g.id " +
+            "WHERE g.table_id = :tableId " +
+            "AND gp.player_id = :playerId " +
+            "AND g.start_time >= :startIso " +
+            "AND g.start_time <  :endIso")
+    int getPlayerMinutesForTableOnDate(int tableId, int playerId, String startIso, String endIso);
 }

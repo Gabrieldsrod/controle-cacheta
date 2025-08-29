@@ -29,6 +29,8 @@ import java.util.Objects;
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHolder> {
 
     private static final int PRICE_PER_HOUR = 10;
+    // No Adapter
+    private final Map<Integer, Integer> lastHourNotifiedByTable = new HashMap<>();
 
     private final List<Table> tables;
     private final Context context;
@@ -97,33 +99,40 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
                 handler.removeCallbacks(Objects.requireNonNull(runnableMap.get(tableNumber)));
             }
 
-            final long[] lastNotifiedHour = {0};
-
             Runnable updateRunnable = new Runnable() {
-                long lastNotifiedHour = 0;
 
                 @Override
                 public void run() {
                     if (table.getStartTime() != null) {
                         Duration duration = Duration.between(table.getStartTime(), LocalDateTime.now());
                         long totalSeconds = duration.getSeconds();
+
                         long hours = totalSeconds / 3600;
                         long minutes = (totalSeconds % 3600) / 60;
                         long seconds = totalSeconds % 60;
 
                         holder.txtCronometro.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
 
-                        int roundedHours = Math.max(1, (int) Math.ceil(totalSeconds / 3600.0));
-                        if (roundedHours != lastNotifiedHour) {
-                            double valor = roundedHours * PRICE_PER_HOUR * 4;
-                            holder.txtValorMesa.setText("R$ " + String.format("%.2f", valor));
+                        int roundedHoursForPrice = Math.max(1, (int) Math.ceil(totalSeconds / 3600.0));
+                        double valor = roundedHoursForPrice * PRICE_PER_HOUR * 4;
+                        holder.txtValorMesa.setText("R$ " + String.format("%.2f", valor));
 
-                            Toast.makeText(context, "🔔 Mesa " + table.getTableNumber() + " completou " + roundedHours + " hora(s)!", Toast.LENGTH_SHORT).show();
+                        int key = table.getTableNumber();
+                        int currentFullHours = (int) (totalSeconds / 3600);
 
-                            lastNotifiedHour = roundedHours;
+                        if (currentFullHours < 1) {
+                            lastHourNotifiedByTable.remove(key);
+                        } else {
+                            int last = lastHourNotifiedByTable.getOrDefault(key, 0);
+                            if (currentFullHours > last) {
+                                lastHourNotifiedByTable.put(key, currentFullHours);
+                                Toast.makeText(context,
+                                        "🔔 Mesa " + table.getTableNumber() + " completou " + currentFullHours + " hora(s)!",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            }
                         }
                     }
-
                     handler.postDelayed(this, 1000);
                 }
             };

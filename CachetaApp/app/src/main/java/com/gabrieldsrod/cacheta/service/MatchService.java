@@ -1,7 +1,6 @@
 package com.gabrieldsrod.cacheta.service;
 
 import com.gabrieldsrod.cacheta.entities.Game;
-import com.gabrieldsrod.cacheta.entities.Player;
 import com.gabrieldsrod.cacheta.entities.Table;
 import com.gabrieldsrod.cacheta.entities.service.GamePlayerService;
 import com.gabrieldsrod.cacheta.entities.service.GameService;
@@ -26,7 +25,7 @@ public class MatchService {
     }
 
     public void loadTables() {
-        this.tables = tableService.getALlTables();
+        this.tables = tableService.getAllTables();
     }
 
     public List<Table> getTables() {

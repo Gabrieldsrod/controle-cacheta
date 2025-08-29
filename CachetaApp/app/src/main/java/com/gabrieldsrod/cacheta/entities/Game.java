@@ -10,8 +10,6 @@ import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity(tableName = "Game")
@@ -121,7 +119,12 @@ public class Game {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return id == game.id && durationMinutes == game.durationMinutes && Double.compare(gameValue, game.gameValue) == 0 && Objects.equals(tableId, game.tableId) && Objects.equals(startTime, game.startTime) && Objects.equals(endTime, game.endTime);
+        return id == game.id
+                && durationMinutes == game.durationMinutes
+                && Double.compare(gameValue, game.gameValue) == 0
+                && Objects.equals(tableId, game.tableId)
+                && Objects.equals(startTime, game.startTime)
+                && Objects.equals(endTime, game.endTime);
     }
 
     @Override

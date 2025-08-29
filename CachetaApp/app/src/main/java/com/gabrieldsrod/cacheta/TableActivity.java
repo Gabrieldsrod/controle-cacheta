@@ -57,7 +57,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
 
         matchService = new MatchService(tableService, gameService, gamePlayerService);
 
-        tablesList = tableService.getALlTables();
+        tablesList = tableService.getAllTables();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TableActivity extends AppCompatActivity implements TableInteraction
     }
 
     private void refreshTables() {
-        tablesList = tableService.getALlTables();
+        tablesList = tableService.getAllTables();
         adapter.updateTables(tablesList);
     }
 

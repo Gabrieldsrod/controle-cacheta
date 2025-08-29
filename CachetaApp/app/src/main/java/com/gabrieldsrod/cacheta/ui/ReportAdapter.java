@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gabrieldsrod.cacheta.R;
 import com.gabrieldsrod.cacheta.dto.MatchSummary;
 import com.gabrieldsrod.cacheta.dto.PlayerSummary;
+import com.gabrieldsrod.cacheta.dto.TableSummary;
 
 import java.util.List;
 
@@ -68,6 +69,12 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.PlayerRepo
             txtTotal = itemView.findViewById(R.id.txtTotalPagar);
             txtMatches = itemView.findViewById(R.id.txtPartidas);
         }
+    }
+
+    public void submit(List<PlayerSummary> list) {
+        this.playerSummaries.clear();
+        this.playerSummaries.addAll(list);
+        notifyDataSetChanged();
     }
 }
 

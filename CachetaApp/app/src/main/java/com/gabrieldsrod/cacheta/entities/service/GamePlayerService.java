@@ -1,11 +1,14 @@
 package com.gabrieldsrod.cacheta.entities.service;
 
+import androidx.annotation.Nullable;
+
 import com.gabrieldsrod.cacheta.db.dao.GamePlayerDao;
 import com.gabrieldsrod.cacheta.entities.Game;
 import com.gabrieldsrod.cacheta.entities.GamePlayer;
 import com.gabrieldsrod.cacheta.entities.Player;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +70,29 @@ public class GamePlayerService {
 
     public int getTotalPlayTimeForPlayerToday(int playerId) {
         return getTotalPlayTimeForPlayer(playerId, LocalDate.now());
+    }
+
+    private static final DateTimeFormatter FMT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
+    public Integer getTopPlayerIdOnDate(int tableId, LocalDate date) {
+        String startIso = date.atStartOfDay().format(FMT);
+        String endIso   = date.plusDays(1).atStartOfDay().format(FMT);
+        return gamePlayerDao.getTopPlayerIdOnDate(tableId, startIso, endIso);
+    }
+
+    @Nullable
+    public Integer getTopPlayerIdToday(int tableId) {
+        return getTopPlayerIdOnDate(tableId, LocalDate.now());
+    }
+
+    public int getTopPlayerMinutesOnDate(int tableId, int playerId, LocalDate date) {
+        String startIso = date.atStartOfDay().format(FMT);
+        String endIso   = date.plusDays(1).atStartOfDay().format(FMT);
+        return gamePlayerDao.getPlayerMinutesForTableOnDate(tableId, playerId, startIso, endIso);
+    }
+
+    public int getTopPlayerMinutesToday(int tableId, int playerId) {
+        return getTopPlayerMinutesOnDate(tableId, playerId, LocalDate.now());
     }
 }

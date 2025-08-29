@@ -1,6 +1,7 @@
 package com.gabrieldsrod.cacheta.entities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -44,7 +45,6 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-
 
     @Override
     public boolean equals(Object o) {

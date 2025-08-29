@@ -30,24 +30,30 @@ public interface GameDao {
     @Query("SELECT * FROM Game WHERE Date(start_time) = :date")
     List<Game> getGamesOnDate(LocalDate date);
 
-    @Query("SELECT * FROM Game WHERE table_id = :tableId ORDER BY start_time DESC")
+    @Query("SELECT * FROM Game WHERE table_id = :tableId " +
+            "ORDER BY start_time DESC")
     List<Game> getGamesPerTable(int tableId);
 
-    @Query("SELECT * FROM Game WHERE table_id = :tableId ORDER BY start_time DESC LIMIT 1")
+    @Query("SELECT * FROM Game WHERE table_id = :tableId " +
+            "ORDER BY start_time DESC LIMIT 1")
     Game getLastGameByTable(int tableId);
 
     @Query("SELECT SUM(game_value) FROM Game")
     double getTotalRaised();
 
-    @Query("SELECT SUM(game_value) FROM Game WHERE Date(start_time) = :date")
+    @Query("SELECT SUM(game_value) FROM Game " +
+            "WHERE Date(start_time) = :date")
     double getTotalRaisedOnDate(LocalDate date);
 
-    @Query("SELECT SUM(game_value) FROM Game WHERE table_id = :tableid")
+    @Query("SELECT SUM(game_value) FROM Game " +
+            "WHERE table_id = :tableid")
     double getTotalRaisedPerTableId(int tableid);
 
-    @Query("SELECT SUM(game_value) FROM Game WHERE table_id = :tableid AND DATE(start_time) = :date")
+    @Query("SELECT SUM(game_value) FROM Game " +
+            "WHERE table_id = :tableid AND DATE(start_time) = :date")
     double getTotalRaisedPerTableIdOnDate(int tableid, LocalDate date);
 
-    @Query("SELECT COUNT(DISTINCT table_id) FROM Game WHERE Date(start_time) = :date")
+    @Query("SELECT COUNT(DISTINCT table_id) " +
+            "FROM Game WHERE Date(start_time) = :date")
     int getTotalOccupiedTables(LocalDate date);
 }

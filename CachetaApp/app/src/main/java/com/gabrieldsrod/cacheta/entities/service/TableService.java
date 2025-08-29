@@ -29,7 +29,7 @@ public class TableService {
     }
 
 
-    public List<Table> getALlTables() {
+    public List<Table> getAllTables() {
         return tableDao.getAllTables();
     }
 
